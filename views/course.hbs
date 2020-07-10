@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>Mathrix</title>
+  </head>
+
+  <body>
+    {{#each content}}
+      {{> (lookup . 'kind') }}
+    {{/each}}
+  </body>
+</html>

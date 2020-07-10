@@ -1,0 +1,13 @@
+{{#if prefix}}
+  <span>{{prefix}}</span>
+{{/if}}
+
+<span>{{title}}</span>
+
+{{#if suffix}}
+  <span>{{suffix}}</span>
+{{/if}}
+
+{{#each wall}}
+  {{> (lookup . 'kind') }}
+{{/each}}

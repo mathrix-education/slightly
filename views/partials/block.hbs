@@ -1,0 +1,5 @@
+{{ variant }}
+
+{{#each wall}}
+  {{> (lookup . 'kind') }}
+{{/each}}

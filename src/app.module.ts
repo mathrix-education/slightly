@@ -1,8 +1,8 @@
 import {Module} from '@nestjs/common';
 import {TypeOrmModule} from '@nestjs/typeorm';
-import {AppController} from './app.controller';
 import {CoursesModule} from './courses/courses.module';
-import {Course} from './entities/course';
+import {Course} from './courses/course';
+import { SilicateModule } from './silicate/silicate.module';
 
 @Module({
   imports: [
@@ -17,10 +17,9 @@ import {Course} from './entities/course';
       synchronize: false,
     }),
     CoursesModule,
+    SilicateModule,
   ],
-  controllers: [
-    AppController,
-  ],
+  controllers: [],
   providers: [],
 })
 export class AppModule {

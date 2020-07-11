@@ -4,6 +4,6 @@ WORKDIR /var/www
 
 COPY . .
 
-RUN npm install
+RUN npm install --only=prod
 
 CMD node dist/server.js

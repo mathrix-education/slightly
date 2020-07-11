@@ -6,4 +6,4 @@ COPY . .
 
 RUN npm install
 
-CMD node dist/main.js
+CMD node dist/server.js

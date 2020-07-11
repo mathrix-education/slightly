@@ -13,7 +13,6 @@ export function katexHelper(text: string, displayMode: boolean = false) {
       if (index % 2 === 0) {
         return part;
       } else {
-        console.log(part);
         return katex.renderToString(part);
       }
     });

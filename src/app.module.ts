@@ -15,6 +15,7 @@ import { SilicateModule } from './silicate/silicate.module';
       database: 'education_local',
       entities: [Course],
       synchronize: false,
+      keepConnectionAlive: true
     }),
     CoursesModule,
     SilicateModule,

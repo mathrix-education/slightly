@@ -14,7 +14,6 @@ export class CoursesController {
   @Get(':id')
   @Render('course')
   find(@Param('id') id) {
-    const course = this.courses.findOne(id);
-    return course;
+    return this.courses.findOne(id);
   }
 }

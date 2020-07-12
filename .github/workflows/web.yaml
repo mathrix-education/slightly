@@ -17,6 +17,7 @@ jobs:
       url: ${{ steps.mappings.outputs.url }}
       semver: ${{ steps.mappings.outputs.semver }}
       image: ${{ steps.mappings.outputs.image }}
+      image_latest: ${{ steps.mappings.outputs.image_latest }}
       image_exists: ${{ steps.mappings.outputs.image_exists }}
       skip_lint: ${{ steps.mappings.outputs.skip_lint }}
       skip_test: ${{ steps.mappings.outputs.skip_test }}

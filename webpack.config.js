@@ -97,7 +97,10 @@ module.exports = (env, argv) => {
       }),
       // Server
       !production && new LiveReloadPlugin(),
-      !production && new StartServerPlugin({name: 'server.js'}),
+      !production && new StartServerPlugin({
+        name: 'server.js',
+        nodeArgs: ['-r', 'dotenv/config']
+      }),
     ],
     output: {
       path: distFolder,

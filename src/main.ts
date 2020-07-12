@@ -15,6 +15,9 @@ import './helpers/variant-name.helper';
 
 declare const module: any;
 
+/**
+ * Synchronously register the partials
+ */
 function registerPartials() {
   glob(join(__dirname, 'views', 'partials', '*.hbs')).forEach((partial) => {
     hbs.registerPartial(parse(partial).name, readFileSync(partial).toString());

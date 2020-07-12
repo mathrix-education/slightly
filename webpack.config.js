@@ -18,14 +18,14 @@ const distFolder = join(__dirname, 'dist');
 module.exports = (env, argv) => {
   const production = ['production', 'prod'].includes(env);
 
-  const bricks = sync(join(__dirname, 'src', 'bricks', '*', '*.{scss,ts}')).map((path) => {
+  const bricks = sync(join(__dirname, 'src', 'silicate', 'bricks', '*', '*.scss')).map((path) => {
     return path.replace(__dirname, '.');
   });
 
   const config = {
     entry: {
       server: production ? './src/main.ts' : ['webpack/hot/poll?100', './src/main.ts'],
-      'assets/js/bus': ['./src/bus/bus.ts', './src/assets/main.scss', ...bricks],
+      'assets/js/bus': ['./src/assets/main.scss', ...bricks],
     },
     mode: production ? 'production' : 'development',
     devtool: production ? 'hidden-source-map' : 'source-map',
@@ -91,7 +91,7 @@ module.exports = (env, argv) => {
       // Handlebars
       new CopyWebpackPlugin({
         patterns: [
-          {from: './src/bricks/*/*.hbs', to: './views/partials', flatten: true},
+          {from: './src/silicate/bricks/*/*.hbs', to: './views/partials', flatten: true},
           {from: './src/views', to: './views'},
         ],
       }),

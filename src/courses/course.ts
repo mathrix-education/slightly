@@ -13,5 +13,5 @@ export class Course {
   name: string;
 
   @Column({type: 'json'})
-  content: string;
+  content: any[];
 }

@@ -11,7 +11,6 @@ import {AppModule} from './app.module';
 
 import './helpers/eq.helper';
 import './helpers/katex.helper';
-import './helpers/variant-name.helper';
 
 declare const module: any;
 

@@ -1,5 +1,25 @@
 @import '~normalize.css/normalize.css';
+@import './colors';
 
 body {
+  padding: 16px;
   font-family: 'Open Sans', Helvetica, sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 1.4rem;
+}
+
+p {
+}
+
+.brick {
+  margin: 24px 0;
+}
+
+.main-title {
+  color: $green;
+  margin: 0 0 32px 0;
+  font-size: 24px;
+  font-family: 'Poppins', Helvetica, sans-serif;
+  font-weight: 500;
 }

@@ -1,0 +1,19 @@
+<div class="{{ variant }}">
+  <div class="wrapper">
+    <h3>{{ variant_name variant }}</h3>
+
+    {{#if prefix}}
+      <span>{{prefix}}</span>
+    {{/if}}
+
+    <span>{{title}}</span>
+
+    {{#if suffix}}
+      <span>{{suffix}}</span>
+    {{/if}}
+
+    {{#each wall}}
+      {{> (lookup . 'kind') }}
+    {{/each}}
+  </div>
+</div>

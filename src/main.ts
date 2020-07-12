@@ -3,7 +3,10 @@ import {NestExpressApplication} from '@nestjs/platform-express';
 import * as hbs from 'hbs';
 import {join} from 'path';
 import {AppModule} from './app.module';
-import {katexHelper} from './helpers/katex.helpers';
+
+import './helpers/eq.helper';
+import './helpers/katex.helper';
+import './helpers/variant-name.helper';
 
 // import './assets/main.scss';
 
@@ -17,7 +20,6 @@ async function bootstrap() {
   app.setBaseViewsDir(join(__dirname, 'views'));
 
   hbs.registerPartials(join(__dirname, 'views', 'partials'));
-  hbs.registerHelper('katex', katexHelper);
 
   await app.listen(3000);
 
@@ -26,6 +28,7 @@ async function bootstrap() {
     module.hot.accept();
     module.hot.dispose(async () => {
       await app.close();
+      hbs.registerPartials(join(__dirname, 'views', 'partials'));
     });
   }
 }

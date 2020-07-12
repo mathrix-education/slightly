@@ -10,6 +10,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const LiveReloadPlugin = require('webpack-livereload-plugin');
 const StartServerPlugin = require('start-server-webpack-plugin');
+const {sync} = require('glob');
 
 // Configuration
 const distFolder = join(__dirname, 'dist');
@@ -17,10 +18,14 @@ const distFolder = join(__dirname, 'dist');
 module.exports = (env, argv) => {
   const production = ['production', 'prod'].includes(env);
 
+  const bricks = sync(join(__dirname, 'src', 'bricks', '*', '*.{scss,ts}')).map((path) => {
+    return path.replace(__dirname, '.');
+  });
+
   const config = {
     entry: {
       server: production ? './src/main.ts' : ['webpack/hot/poll?100', './src/main.ts'],
-      'assets/js/bus': ['./src/bus/bus.ts', './src/assets/main.scss'],
+      'assets/js/bus': ['./src/bus/bus.ts', './src/assets/main.scss', ...bricks],
     },
     mode: production ? 'production' : 'development',
     devtool: production ? 'hidden-source-map' : 'source-map',
@@ -86,6 +91,7 @@ module.exports = (env, argv) => {
       // Handlebars
       new CopyWebpackPlugin({
         patterns: [
+          {from: './src/bricks/*/*.hbs', to: './views/partials', flatten: true},
           {from: './src/views', to: './views'},
         ],
       }),

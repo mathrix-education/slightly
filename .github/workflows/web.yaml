@@ -78,3 +78,84 @@ jobs:
           gcloud container images add-tag \
             ${{ needs.mappings.outputs.image }} \
             ${{ needs.mappings.outputs.image_latest }}
+
+  # ============================================================================
+  # Deploy the container to the Google Cloud Kubernetes Cluster.
+  # ============================================================================
+  deploy_gke:
+    name: Deploy on Google Kubernetes Engine
+    if: github.event_name != 'pull_request'
+    needs: [mappings, docker]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: '0'
+      - name: Setup Google Cloud SDK
+        uses: mathrix-education/setup-gcloud@1.2.0
+        with:
+          version: local
+          service-account-key: ${{ secrets.GCLOUD_AUTH }}
+      - name: Trigger deployment event
+        id: deployment
+        if: needs.mappings.outputs.image_exists && github.event_name != 'pull_request'
+        uses: avakar/create-deployment@v1
+        with:
+          ref: ${{ github.ref }}
+          task: deploy
+          auto_merge: false
+          required_contexts: ''
+          payload: ${{ toJson(needs.mappings.outputs) }}
+          environment: ${{ needs.mappings.outputs.environment }}
+          description: Deploy ${{ needs.mappings.outputs.semver }} on ${{ needs.mappings.outputs.environment }}
+          production_environment: ${{ needs.mappings.outputs.environment == 'production' }}
+          transient_environment: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.DEPLOY_TOKEN }}
+      - name: Set deployment status to "in_progress"
+        uses: avakar/set-deployment-status@v1
+        with:
+          state: in_progress
+          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+          log_url: https://github.com/${{ github.repository	}}/actions/runs/${{ github.run_id }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#      - name: Setup Sentry CLI
+#        uses: mathrix-education/setup-sentry-cli@0.1.1
+#        with:
+#          token: ${{ SECRETS.SENTRY_TOKEN }}
+#          organization: mathrix-tech
+#          project: railgun
+#      - name: Create Sentry Release
+#        run: |
+#          sentry-cli releases new ${{ needs.mappings.outputs.semver }}
+#          sentry-cli releases set-commits ${{ needs.mappings.outputs.semver }} --auto
+#          sentry-cli releases finalize ${{ needs.mappings.outputs.semver }}
+      - name: Change image version
+        run: |
+          gcloud container clusters get-credentials teknoid --zone=europe-west1-b
+          kubectl set image -n ${{ needs.mappings.outputs.environment }} \
+            deployment/slightly "server=${{ needs.mappings.outputs.image }}"
+#      - name: Deploy Sentry Release
+#        run: |
+#          sentry-cli releases deploys ${{ needs.mappings.outputs.semver }} \
+#            new -e ${{ needs.mappings.outputs.environment }}
+      - name: Set deployment status to "success"
+        uses: avakar/set-deployment-status@v1
+        with:
+          state: success
+          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+          environment_url: ${{ needs.mappings.outputs.url }}
+          log_url: https://github.com/${{ github.repository	}}/actions/runs/${{ github.run_id }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Set deployment status to "failure"
+        uses: avakar/set-deployment-status@v1
+        if: failure()
+        with:
+          state: failure
+          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+          log_url: https://github.com/${{ github.repository	}}/actions/runs/${{ github.run_id }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

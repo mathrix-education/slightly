@@ -1,7 +1,7 @@
 import * as hbs from 'hbs';
 
-hbs.registerHelper('eq', function (a, b, options) {
-  if (a == b) {
+hbs.registerHelper('eq', (lhs, rhs, options) => {
+  if (lhs == rhs) {
     return options.fn(this);
   }
 

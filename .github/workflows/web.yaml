@@ -74,10 +74,17 @@ jobs:
         if: needs.mappings.outputs.skip_build != '1'
         run: docker push ${{ needs.mappings.outputs.image }}
       - name: Add "latest" tag
+        if: github.event_name == 'push'
+        run: |
+          gcloud container images add-tag \
+          ${{ needs.mappings.outputs.image }} \
+          ${{ needs.mappings.outputs.image_latest }}
+      - name: Add "version" tag
+        if: needs.mappings.outputs.environment == 'production'
         run: |
           gcloud container images add-tag \
             ${{ needs.mappings.outputs.image }} \
-            ${{ needs.mappings.outputs.image_latest }}
+            ${{ needs.mappings.outputs.image_version }}
 
   # ============================================================================
   # Deploy the container to the Google Cloud Kubernetes Cluster.

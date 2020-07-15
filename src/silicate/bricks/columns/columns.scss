@@ -1,0 +1,8 @@
+.block-columns {
+  > .wall {
+    display: flex;
+  }
+  > .wall > .brick {
+    flex: 1 1 0px;
+  }
+}

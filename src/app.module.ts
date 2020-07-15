@@ -1,8 +1,7 @@
 import {Module} from '@nestjs/common';
 import {TypeOrmModule} from '@nestjs/typeorm';
-import {CoursesModule} from './courses/courses.module';
 import {Course} from './courses/course';
-import { SilicateModule } from './silicate/silicate.module';
+import {CoursesModule} from './courses/courses.module';
 import './helpers/eq.helper';
 
 @Module({
@@ -16,7 +15,7 @@ import './helpers/eq.helper';
       database: process.env.DB_NAME,
       entities: [Course],
       synchronize: false,
-      keepConnectionAlive: true
+      keepConnectionAlive: true,
     }),
     CoursesModule,
   ],

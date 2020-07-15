@@ -2,6 +2,10 @@ import * as hbs from 'hbs';
 import * as katex from 'katex';
 
 hbs.registerHelper('katex', (text: string, options) => {
+  if (!text) {
+    return text;
+  }
+
   const result = text.split('$')
     .map((part: string, index: number) => {
       if (index % 2 === 0) {

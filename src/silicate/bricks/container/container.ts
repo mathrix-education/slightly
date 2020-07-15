@@ -22,10 +22,6 @@ export class Container extends Brick {
     theorem: 'Théorème',
   };
 
-  constructor(data) {
-    super(data);
-  }
-
   get variantName() {
     return Container.VARIANT_NAMES[this.variant] ?? `UNKNOWN VARIANT (${this.variant})`;
   }

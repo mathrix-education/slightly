@@ -1,5 +1,4 @@
-{{ variant }}
-
-{{#each wall}}
-  {{> (lookup . 'kind') }}
-{{/each}}
+<div class="variant variant-{{ variant }}">
+  <img src="/img/lumix/{{ img }}" alt="">
+  {{> wall wall=wall}}
+</div>

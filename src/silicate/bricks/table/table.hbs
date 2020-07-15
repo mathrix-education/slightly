@@ -1,0 +1,13 @@
+<div class="table-wrapper">
+  <table cellpadding="0">
+    {{#each matrix as |row|}}
+      <tr>
+        {{#each row as |cell|}}
+          <td>
+            {{>wall wall=cell}}
+          </td>
+        {{/each}}
+      </tr>
+    {{/each}}
+  </table>
+</div>

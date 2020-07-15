@@ -1,5 +1,5 @@
-@import '~normalize.css/normalize.css';
-@import './colors';
+@import '../../node_modules/normalize.css/normalize.css';
+@import 'colors';
 
 body {
   padding: 16px;
@@ -9,7 +9,8 @@ body {
   line-height: 1.4rem;
 }
 
-p {
+figure {
+  margin: 0;
 }
 
 .brick {

@@ -12,8 +12,6 @@
       <span>{{suffix}}</span>
     {{/if}}
 
-    {{#each wall}}
-      {{> (lookup . 'kind') }}
-    {{/each}}
+    {{> wall wall=wall}}
   </div>
 </div>

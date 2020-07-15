@@ -1,9 +1,11 @@
 import {Injectable} from '@nestjs/common';
+import {Block} from '../bricks/block/block';
 import {Container} from '../bricks/container/container';
 
 @Injectable()
 export class Parser {
   private static readonly BRICK_MAP = {
+    block: Block,
     container: Container,
   };
 
@@ -12,7 +14,7 @@ export class Parser {
       throw new Error(`Maximum depth (${maxDepth}) reached!`);
     }
 
-    const wa = wall.map((rawBrick => {
+    return wall.map((rawBrick => {
       if (!Parser.BRICK_MAP[rawBrick.kind]) {
         return rawBrick;
       }
@@ -25,11 +27,5 @@ export class Parser {
 
       return brick;
     }));
-
-    if (depth === 0) {
-      console.log(wa);
-    }
-
-    return wa;
   }
 }

@@ -1,0 +1,25 @@
+.brick-block {
+  .variant {
+    position: relative;
+    padding: 8px 16px;
+
+    img {
+      position: absolute;
+      top: -20px;
+      width: 40px;
+    }
+
+    &.variant-reminder {
+      color: #229A87;
+      background-color: #EFFFFA;
+    }
+    &.variant-tip {
+      color: #2568d3;
+      background-color: #eff7ff;
+    }
+    &.variant-trap {
+      color: #911019;
+      background-color: #ffefef;
+    }
+  }
+}

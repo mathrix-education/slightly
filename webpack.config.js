@@ -25,7 +25,7 @@ module.exports = (env, argv) => {
   const config = {
     entry: {
       server: production ? './src/main.ts' : ['webpack/hot/poll?100', './src/main.ts'],
-      'assets/js/bus': ['./src/assets/main.scss', ...bricks],
+      'assets/js/bus': ['./src/scss/main.scss', ...bricks],
     },
     mode: production ? 'production' : 'development',
     devtool: production ? 'hidden-source-map' : 'source-map',
@@ -88,6 +88,16 @@ module.exports = (env, argv) => {
       new MiniCssExtractPlugin({
         filename: 'assets/css/style.css',
       }),
+      // Various assets
+      new CopyWebpackPlugin({
+        patterns: [
+          {
+            from: './src/assets/**',
+            to: './assets',
+            transformPath: (targetPath) => targetPath.replace('src/assets/', ''),
+          },
+        ],
+      }),
       // Handlebars
       new CopyWebpackPlugin({
         patterns: [
@@ -99,7 +109,7 @@ module.exports = (env, argv) => {
       !production && new LiveReloadPlugin(),
       !production && new StartServerPlugin({
         name: 'server.js',
-        nodeArgs: ['-r', 'dotenv/config']
+        nodeArgs: ['-r', 'dotenv/config'],
       }),
     ],
     output: {

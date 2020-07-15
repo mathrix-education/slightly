@@ -8,12 +8,16 @@ import {
   parse,
 } from 'path';
 import {AppModule} from './app.module';
+import * as helpers from 'handlebars-helpers';
 
-import './helpers/eq.helper';
 import './helpers/globals.helper';
 import './helpers/katex.helper';
 
 declare const module: any;
+
+helpers({
+  handlebars: hbs.handlebars
+});
 
 /**
  * Synchronously register the partials

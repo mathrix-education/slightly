@@ -1,1 +1,7 @@
-<img src="{{ src }}" alt="">
+<figure>
+  <img src="{{ src }}" alt="{{ alt }}">
+
+  {{#if displayAlt}}
+    <figcaption>{{ alt }}</figcaption>
+  {{/if}}
+</figure>

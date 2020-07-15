@@ -1,7 +1,9 @@
 <div class="wall">
   {{#each wall}}
-    <div class="brick brick-{{ kind }}">
-      {{> (lookup . 'kind') }}
-    </div>
+    {{#if kind}}
+      <div class="brick brick-{{ kind }}">
+        {{> (lookup . 'kind') }}
+      </div>
+    {{/if}}
   {{/each}}
 </div>

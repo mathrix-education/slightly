@@ -6,6 +6,8 @@
   }
 
   figcaption {
+    max-width: 100%;
     text-align: center;
+    overflow-x: scroll;
   }
 }

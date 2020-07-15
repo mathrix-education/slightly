@@ -1,22 +1,22 @@
-import 'source-map-support/register'
 import {NestFactory} from '@nestjs/core';
 import {NestExpressApplication} from '@nestjs/platform-express';
 import {readFileSync} from 'fs';
 import {sync as glob} from 'glob';
+import * as helpers from 'handlebars-helpers';
 import * as hbs from 'hbs';
 import {
   join,
   parse,
 } from 'path';
+import 'source-map-support/register';
 import {AppModule} from './app.module';
-import * as helpers from 'handlebars-helpers';
-import './helpers/globals.helper';
-import './helpers/katex.helper';
+import './hbs/globals.helper';
+import './hbs/katex.helper';
 
 declare const module: any;
 
 helpers({
-  handlebars: hbs.handlebars
+  handlebars: hbs.handlebars,
 });
 
 /**
@@ -32,7 +32,7 @@ async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
   app.setViewEngine('hbs');
-  app.set('view options', { layout: 'index' });
+  app.set('view options', {layout: 'index'});
 
   app.useStaticAssets(join(__dirname, 'assets'));
   app.setBaseViewsDir(join(__dirname, 'views'));

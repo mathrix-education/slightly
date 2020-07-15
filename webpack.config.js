@@ -24,11 +24,14 @@ module.exports = (env, argv) => {
   const brickScripts = sync(join(__dirname, 'src', 'silicate', 'bricks', '*', '*.bus.ts')).map((path) => {
     return path.replace(__dirname, '.');
   });
+  const busScripts = sync(join(__dirname, 'src', 'bus', '**' , '*.ts')).map((path) => {
+    return path.replace(__dirname, '.');
+  });
 
   const config = {
     entry: {
-      server: production ? './src/main.ts' : ['webpack/hot/poll?100', './src/main.ts'],
-      'assets/js/bus': ['./src/scss/main.scss', ...brickStyles, ...brickScripts],
+      server: production ? './src/server/main.ts' : ['webpack/hot/poll?100', './src/server/main.ts'],
+      'assets/js/bus': ['./src/scss/main.scss', ...brickStyles, ...brickScripts, ...busScripts],
     },
     mode: production ? 'production' : 'development',
     devtool: production ? 'hidden-source-map' : 'source-map',

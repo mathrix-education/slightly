@@ -4,7 +4,7 @@ import {
   Param,
   Render,
 } from '@nestjs/common';
-import {Parser} from '../silicate/spec/parser';
+import {Parser} from '../../silicate/spec/parser';
 import {CoursesService} from './courses.service';
 
 @Controller('courses')

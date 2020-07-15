@@ -18,14 +18,17 @@ const distFolder = join(__dirname, 'dist');
 module.exports = (env, argv) => {
   const production = ['production', 'prod'].includes(env);
 
-  const bricks = sync(join(__dirname, 'src', 'silicate', 'bricks', '*', '*.scss')).map((path) => {
+  const brickStyles = sync(join(__dirname, 'src', 'silicate', 'bricks', '*', '*.scss')).map((path) => {
+    return path.replace(__dirname, '.');
+  });
+  const brickScripts = sync(join(__dirname, 'src', 'silicate', 'bricks', '*', '*.bus.ts')).map((path) => {
     return path.replace(__dirname, '.');
   });
 
   const config = {
     entry: {
       server: production ? './src/main.ts' : ['webpack/hot/poll?100', './src/main.ts'],
-      'assets/js/bus': ['./src/scss/main.scss', ...bricks],
+      'assets/js/bus': ['./src/scss/main.scss', ...brickStyles, ...brickScripts],
     },
     mode: production ? 'production' : 'development',
     devtool: production ? 'hidden-source-map' : 'source-map',

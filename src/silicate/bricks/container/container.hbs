@@ -1,16 +1,20 @@
 <div class="{{ variant }}">
   <div class="wrapper">
-    <h3>{{ variantName }}</h3>
+    <h3>
+      {{#if prefix}}
+        <span>{{prefix}}</span>
+      {{/if}}
 
-    {{#if prefix}}
-      <span>{{prefix}}</span>
-    {{/if}}
+      {{ variantName }}
 
-    <span>{{title}}</span>
+      {{#if title}}
+        <span>{{title}}</span>
+      {{/if}}
 
-    {{#if suffix}}
-      <span>{{suffix}}</span>
-    {{/if}}
+      {{#if suffix}}
+        <span>{{suffix}}</span>
+      {{/if}}
+    </h3>
 
     {{> wall wall=wall}}
   </div>

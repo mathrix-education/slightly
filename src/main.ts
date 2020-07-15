@@ -1,3 +1,4 @@
+import 'source-map-support/register'
 import {NestFactory} from '@nestjs/core';
 import {NestExpressApplication} from '@nestjs/platform-express';
 import {readFileSync} from 'fs';
@@ -9,7 +10,6 @@ import {
 } from 'path';
 import {AppModule} from './app.module';
 import * as helpers from 'handlebars-helpers';
-
 import './helpers/globals.helper';
 import './helpers/katex.helper';
 

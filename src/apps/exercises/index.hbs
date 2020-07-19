@@ -18,6 +18,12 @@
     <main id="app">
       <h1 class="main-title">{{ katex name }}</h1>
 
+      <button>{{ JSONstringify questions }}</button>
+
+      {{#forEach questions }}
+        <button>{{ JSONstringify this }}</button>
+      {{/forEach}}
+
       {{> wall wall=content }}
     </main>
   </body>

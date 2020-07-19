@@ -16,6 +16,7 @@ jobs:
       environment: ${{ steps.mappings.outputs.environment }}
       url: ${{ steps.mappings.outputs.url }}
       semver: ${{ steps.mappings.outputs.semver }}
+      semver_dev: ${{ steps.mappings.outputs.semver_dev }}
       image: ${{ steps.mappings.outputs.image }}
       image_latest: ${{ steps.mappings.outputs.image_latest }}
       image_exists: ${{ steps.mappings.outputs.image_exists }}

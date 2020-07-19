@@ -42,6 +42,29 @@ jobs:
           MAPPINGS: ${{ toJson(steps.mappings.outputs) }}
 
   # ============================================================================
+  # Publish the typings package on GitHub Registry
+  # ============================================================================
+  publish:
+    name: Publish package on GitHub Registry
+    if: github.event_name == 'push'
+    needs: [mappings]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Build stable package
+        if: startsWith(github.ref, 'refs/tags/')
+        run: .github/scripts/build.sh "${{ needs.mappings.outputs.semver }}"
+      - name: Build development package
+        if: github.ref == 'refs/heads/main'
+        run: .github/scripts/build.sh "${{ needs.mappings.outputs.semver_dev }}"
+      - name: Publish package to GitHub Registry
+        run: |
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GH_REGISTRY_TOKEN }}" > ~/.npmrc
+          cd ./dist/types
+          npm publish
+
+  # ============================================================================
   # Build the Docker image
   # ============================================================================
   docker:
@@ -128,26 +151,26 @@ jobs:
           log_url: https://github.com/${{ github.repository	}}/actions/runs/${{ github.run_id }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#      - name: Setup Sentry CLI
-#        uses: mathrix-education/setup-sentry-cli@0.1.1
-#        with:
-#          token: ${{ SECRETS.SENTRY_TOKEN }}
-#          organization: mathrix-tech
-#          project: railgun
-#      - name: Create Sentry Release
-#        run: |
-#          sentry-cli releases new ${{ needs.mappings.outputs.semver }}
-#          sentry-cli releases set-commits ${{ needs.mappings.outputs.semver }} --auto
-#          sentry-cli releases finalize ${{ needs.mappings.outputs.semver }}
+      #      - name: Setup Sentry CLI
+      #        uses: mathrix-education/setup-sentry-cli@0.1.1
+      #        with:
+      #          token: ${{ SECRETS.SENTRY_TOKEN }}
+      #          organization: mathrix-tech
+      #          project: railgun
+      #      - name: Create Sentry Release
+      #        run: |
+      #          sentry-cli releases new ${{ needs.mappings.outputs.semver }}
+      #          sentry-cli releases set-commits ${{ needs.mappings.outputs.semver }} --auto
+      #          sentry-cli releases finalize ${{ needs.mappings.outputs.semver }}
       - name: Change image version
         run: |
           gcloud container clusters get-credentials teknoid --zone=europe-west1-b
           kubectl set image -n ${{ needs.mappings.outputs.environment }} \
             deployment/slightly "server=${{ needs.mappings.outputs.image }}"
-#      - name: Deploy Sentry Release
-#        run: |
-#          sentry-cli releases deploys ${{ needs.mappings.outputs.semver }} \
-#            new -e ${{ needs.mappings.outputs.environment }}
+      #      - name: Deploy Sentry Release
+      #        run: |
+      #          sentry-cli releases deploys ${{ needs.mappings.outputs.semver }} \
+      #            new -e ${{ needs.mappings.outputs.environment }}
       - name: Set deployment status to "success"
         uses: avakar/set-deployment-status@v1
         with:

@@ -11,7 +11,7 @@
   "scripts": {
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "webpack": "TS_NODE_PROJECT=\"tsconfig.webpack.json\" webpack",
-    "types": "tsc -p tsconfig.types.json --emitDeclarationOnly",
+    "types": ".github/scripts/types.sh",
     "build": "npm run webpack -- --env prod",
     "start": "npm run webpack",
     "start:dev": "npm run webpack -- --watch",

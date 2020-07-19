@@ -59,12 +59,14 @@ else
 fi
 
 semver="$version+$counter.$short_sha"
+semver_dev="$version-dev.$counter+$counter.$short_sha"
 image="$image_name:$image_tag"
 
 # Outputs
 set_output "environment" "$environment"
 set_output "url" "$url"
 set_output "semver" "$semver"
+set_output "semver_dev" "$semver_dev"
 set_output "image" "$image"
 set_output "image_latest" "$image_name:latest-$environment"
 set_output "image_exists" "$image_exists"

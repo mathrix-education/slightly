@@ -1,0 +1,22 @@
+{
+  "name": "@mathrix-education/slightly",
+  "version": "%VERSION%",
+  "description": "Public types for @mathrix-education/slightly",
+  "maintainers": [
+    "Mathieu Bour <mathieu@mathrix.fr> (https://github.com/mathieu-bour)",
+    "Dimitri Bret <dimitri@mathrix.fr> (https://github.com/dimitri-bret)"
+  ],
+  "homepage": "https://github.com/mathrix-education/slightly#readme",
+  "bugs": {
+    "url": "https://github.com/mathrix-education/discovery.scss/issues",
+    "email": "mathieu@mathrix.fr"
+  },
+  "license": "SEE LICENSE IN LICENSE.md",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mathrix-education/slightly.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  }
+}

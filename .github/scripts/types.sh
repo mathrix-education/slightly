@@ -13,7 +13,7 @@ fi
 
 rm -rf dist/types
 tsc -p tsconfig.types.json --emitDeclarationOnly
-jq . package.types.json | jq ".version=$version" > dist/types/package.json
+jq ".version = \"$version\"" "$root/package.types.json" > "$root/dist/types/package.json"
 
 cd dist/types || exit 1
 cat ./*.d.ts | sed '/^import/d' > index.d.ts.tmp

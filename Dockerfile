@@ -2,7 +2,10 @@ FROM node:14-alpine
 
 WORKDIR /var/www
 
-COPY ./dist/slightly/* ./
+COPY ./dist/slightly/. ./
+
+RUN apk add tree && tree .
+
 COPY package.json .
 COPY package-lock.json .
 COPY README.md .

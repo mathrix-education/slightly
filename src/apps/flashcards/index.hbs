@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr-FR">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Mathrix</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <base href="{{ globals 'base_href' }}">
+
+    <link href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&display=swap" rel="stylesheet">
+
+    <script src="http://localhost:35729/livereload.js"></script>
+  </head>
+
+  <body>
+    <main id="app"><h1 class="main-title">{{ katex name }}</h1>
+
+      <div class="flashcard__play-screen">
+        <div class="flashcard__progress">
+          <div class="flashcard__progress-buffer"></div>
+        </div>
+
+        <a class="flashcard__revision-btn">Mode révision</a>
+        <a class="flashcard__training-btn">Mode entraînement</a>
+
+        <div class="flashcard__container">
+          {{#each cards as |card|}}
+            <div class="flashcard">
+              <div class="flashcard__front">
+                {{> wall wall=front }}
+              </div>
+              <div class="flashcard__back">
+                {{> wall wall=back }}
+              </div>
+            </div>
+          {{/each}}
+        </div>
+
+        <div class="flashcard__footer">
+          <button class="flashcard__reveal-btn">Voir la réponse</button>
+          <button class="flashcard__wrong-btn">J'ai faux</button>
+          <button class="flashcard__right-btn">J'ai juste</button>
+        </div>
+      </div>
+
+      <div class="flashcard__end-screen">
+        <div class="flashcard__score">
+          <span class="flashcard__score-percent"></span>
+          %
+        </div>
+        de réussite
+
+        <button class="flashcard__retry-btn">Recommencer</button>
+        <button class="flashcard__end-btn">Terminer</button>
+      </div>
+    </main>
+  </body>
+</html>

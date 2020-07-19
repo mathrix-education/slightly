@@ -15,7 +15,7 @@ export class FlashcardsController {
   }
 
   @Get(':id')
-  @Render('flashcard')
+  @Render('flashcards')
   find(@Param('id') id) {
     return this.flashcards.findOne(id).then((flashcard) => {
       flashcard.fronts = flashcard.fronts.map((wall) => this.parser.parse(wall));

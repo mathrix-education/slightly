@@ -1,6 +1,5 @@
 @import '../../node_modules/normalize.css/normalize.css';
 @import 'colors';
-@import 'flashcards';
 
 body {
   padding: 16px;
@@ -8,6 +7,10 @@ body {
   font-weight: 300;
   font-size: 16px;
   line-height: 1.4rem;
+}
+
+a {
+  color: $green;
 }
 
 figure {

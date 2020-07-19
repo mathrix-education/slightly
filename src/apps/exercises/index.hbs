@@ -12,14 +12,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&display=swap" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
 
     <script src="http://localhost:35729/livereload.js"></script>
   </head>
 
   <body>
-    {{{ body }}}
+    <main id="app">
+      <h1 class="main-title">{{ katex name }}</h1>
 
-    <script src="js/bus.js"></script>
+      {{> wall wall=content }}
+    </main>
   </body>
 </html>

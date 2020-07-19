@@ -1,0 +1,140 @@
+@import '../../../scss/colors';
+
+@mixin flashcard-box {
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 5px 0 30px rgba(185,213,208,.5);
+}
+
+.flashcard__progress {
+  height: 10px;
+  background-color: $yellow-l2;
+  border-radius: 10px;
+  overflow: hidden;
+
+  .flashcard__progress-buffer {
+    width: 0;
+    height: 100%;
+    background-color: $yellow;
+    border-radius: 10px;
+    transition: width .3s ease;
+  }
+}
+
+.flashcard-mode {
+  margin: 8px 0;
+  text-align: right;
+}
+
+.flashcard-mode-button {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.flashcard {
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.flashcard__right-btn, .flashcard__wrong-btn {
+  display: none;
+}
+
+
+[data-mode='revision'] {
+  .flashcard__revision-btn {
+    display: none;
+  }
+
+  .flashcard {
+    display: none;
+    position: relative;
+    height: 40vh;
+
+    .flashcard__front, .flashcard__back {
+      padding: 24px;
+    }
+
+    &.active {
+      display: block;
+    }
+
+    .flashcard__front, .flashcard__back {
+      @include flashcard-box;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: $white;
+      transition: all .4s ease-in-out;
+      transform-style: preserve-3d;
+      backface-visibility: hidden;
+    }
+
+    .flashcard__front {
+      z-index: 900;
+      transform: rotateX(0) rotateY(0);
+      background: $white;
+    }
+
+    .flashcard__back {
+      z-index: 800;
+      transform: rotateY(-179deg);
+      background: $green-l;
+    }
+  }
+
+  &[data-flipped='true'] {
+    .flashcard__front {
+      z-index: 900;
+      transform: rotateY(179deg);
+    }
+
+    .flashcard__back {
+      z-index: 1000;
+      transform: rotateX(0) rotateY(0);
+      background: $green-l2;
+    }
+
+    .flashcard__reveal-btn {
+      display: none;
+    }
+
+    .flashcard__right-btn, .flashcard__wrong-btn {
+      display: block;
+    }
+  }
+}
+
+[data-mode='training'] {
+  .flashcard__progress {
+    display: none;
+  }
+
+  .flashcard__training-btn {
+    display: none;
+  }
+
+  .flashcard {
+    @include flashcard-box;
+    padding: 8px;
+  }
+
+  .flashcard__front {
+    font-weight: 500;
+  }
+}
+
+.flashcard__end-screen {
+  display: none;
+}
+
+[data-status='end'] {
+  .flashcard__end-screen {
+    display: block;
+  }
+}

@@ -32,7 +32,6 @@ async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
   app.setViewEngine('hbs');
-  app.set('view options', {layout: 'index'});
 
   app.useStaticAssets(join(__dirname, 'assets'));
   app.setBaseViewsDir(join(__dirname, 'views'));

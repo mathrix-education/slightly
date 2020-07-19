@@ -15,7 +15,7 @@ export class CoursesController {
   }
 
   @Get(':id')
-  @Render('course')
+  @Render('courses')
   find(@Param('id') id) {
     return this.courses.findOne(id).then((course) => {
       course.content = this.parser.parse(course.content);

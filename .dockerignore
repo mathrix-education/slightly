@@ -13,4 +13,4 @@ Dockerfile
 nest-cli.json
 postcss.config.js
 tsconfig.*
-webpack.config.js
+webpack.config.ts

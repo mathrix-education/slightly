@@ -1,0 +1,17 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "": true,
+    "outDir": "dist/types/slightly"
+  },
+  "exclude": [
+    "node_modules",
+    "test",
+    "dist",
+    "**/*spec.ts",
+    "./src/apps/*/ts/*app.ts"
+  ],
+  "include": [
+    "./src/apps/*/ts/*.ts"
+  ]
+}

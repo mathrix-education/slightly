@@ -2,7 +2,9 @@ import {CleanWebpackPlugin} from 'clean-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import {sync as glob} from 'glob';
+import HtmlWebpackHarddiskPlugin from 'html-webpack-harddisk-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import HtmlWebpackTagsPlugin from 'html-webpack-tags-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
 import {join} from 'path';
@@ -16,10 +18,9 @@ import {
 } from 'webpack';
 import LiveReloadPlugin from 'webpack-livereload-plugin';
 import nodeExternals from 'webpack-node-externals';
-import HtmlWebpackTagsPlugin from 'html-webpack-tags-plugin';
 
 // Configuration
-const dist = join(__dirname, 'dist');
+const dist = join(__dirname, 'dist', 'slightly');
 const assets = join(dist, 'assets');
 const appsNames = ['courses', 'flashcards', 'exercises', 'exams'];
 
@@ -50,6 +51,7 @@ module.exports = (env: string) => {
       new HtmlWebpackPlugin({
         template: `./src/apps/${appName}/index.hbs`,
         filename: join(dist, 'views', `${appName}.hbs`),
+        alwaysWriteToDisk: true,
         minify: false,
         chunks: ['bricks', chunk],
         templateParameters: (compilation, assets, assetTags) => {
@@ -80,7 +82,6 @@ module.exports = (env: string) => {
                     tag.attributes.src = tag.attributes.src.replace('assets/assets/', '');
                   }
 
-                  console.log(tag);
                   return tag;
                 }),
               ],
@@ -127,6 +128,8 @@ module.exports = (env: string) => {
               loader: MiniCssExtractPlugin.loader,
               options: {
                 publicPath: assets,
+                // hmr: !production,
+                reloadAll: true,
               },
             },
             'css-loader',
@@ -147,7 +150,6 @@ module.exports = (env: string) => {
     },
     plugins: [
       // System
-      !production && new CleanWebpackPlugin(),
       new ProgressBarPlugin(),
       !production && new HotModuleReplacementPlugin(),
       !production && new WatchIgnorePlugin([/\.js$/, /\.d\.ts$/]),
@@ -159,6 +161,7 @@ module.exports = (env: string) => {
         tags: ['http://localhost:35729/livereload.js'],
         usePublicPath: false,
       }),
+      new HtmlWebpackHarddiskPlugin(),
       // SCSS
       new MiniCssExtractPlugin({
         filename: 'assets/css/' + (production ? '[name].[hash].css' : '[name].css'),
@@ -185,6 +188,9 @@ module.exports = (env: string) => {
       !production && new StartServerPlugin({
         name: 'server.js',
         nodeArgs: ['-r', 'dotenv/config'],
+      }),
+      new CleanWebpackPlugin({
+        cleanAfterEveryBuildPatterns: ['!**/*.hbs']
       }),
     ],
     output: {

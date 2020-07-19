@@ -11,6 +11,7 @@
   "scripts": {
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "webpack": "TS_NODE_PROJECT=\"tsconfig.webpack.json\" webpack",
+    "types": "tsc -p tsconfig.types.json --emitDeclarationOnly",
     "build": "npm run webpack -- --env prod",
     "start": "npm run webpack",
     "start:dev": "npm run webpack -- --watch",
@@ -72,6 +73,7 @@
     "eslint-plugin-import": "^2.20.1",
     "fork-ts-checker-webpack-plugin": "^5.0.7",
     "glob": "^7.1.6",
+    "html-webpack-harddisk-plugin": "^1.0.2",
     "html-webpack-plugin": "^4.3.0",
     "html-webpack-tags-plugin": "^2.0.17",
     "jest": "26.0.1",

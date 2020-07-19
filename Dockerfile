@@ -2,8 +2,11 @@ FROM node:14-alpine
 
 WORKDIR /var/www
 
-COPY . .
+COPY ./dist/slightly/* ./
+COPY package.json .
+COPY package-lock.json .
+COPY README.md .
 
 RUN npm install --only=prod
 
-CMD node dist/server.js
+CMD node server.js

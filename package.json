@@ -11,11 +11,11 @@
   "scripts": {
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "webpack": "TS_NODE_PROJECT=\"tsconfig.webpack.json\" webpack",
-    "types": ".github/scripts/types.sh",
+    "types": "src/types/build.sh",
     "build": "npm run webpack -- --env prod",
     "start": "npm run webpack",
     "start:dev": "npm run webpack -- --watch",
-    "start:prod": "node dist/server.js",
+    "start:prod": "node -r dotenv/config dist/slightly/server.js",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
     "test:watch": "jest --watch",

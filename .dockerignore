@@ -1,6 +1,5 @@
 # Directories
 .idea/
-node_modules/
 src/
 test/
 

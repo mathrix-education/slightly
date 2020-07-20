@@ -88,6 +88,8 @@ jobs:
           echo "//npm.pkg.github.com/:_authToken=${{ secrets.GH_REGISTRY_TOKEN }}" > ~/.npmrc
           npm install
           npm run build
+          rm -rf node_modules
+          npm install --only=prod
       - name: Build Docker image
         if: needs.mappings.outputs.skip_build != '1'
         run: |

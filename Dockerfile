@@ -3,11 +3,10 @@ FROM node:14-alpine
 WORKDIR /var/www
 
 COPY ./dist/slightly/. ./
-
+COPY node_modules .
 COPY package.json .
 COPY package-lock.json .
 COPY README.md .
-
-RUN npm install --only=prod
+COPY LICENSE.md .
 
 CMD node server.js

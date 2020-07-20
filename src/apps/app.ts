@@ -1,11 +1,13 @@
 import {NsViewBridgeWeb} from './ns-view-bridge-web';
 
 export abstract class App {
-  protected bridge: NsViewBridgeWeb = NsViewBridgeWeb.getInstance();
-
   protected constructor(
     protected readonly $state = document.querySelector<HTMLDivElement>('#app'),
   ) {
+  }
+
+  protected get bridge(): NsViewBridgeWeb {
+    return NsViewBridgeWeb.getInstance();
   }
 
   /**

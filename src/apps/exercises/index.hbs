@@ -16,15 +16,37 @@
 
   <body>
     <main id="app">
-      <h1 class="main-title">{{ katex name }}</h1>
+      <h1 class="main-title">{{ katex subject.name }}</h1>
 
-      <button>{{ JSONstringify questions }}</button>
+      <div class="exercise__selector">
+        {{#forEach exercises }}
+          <button class="exercise__link" data-id="{{ id }}">{{ index }}</button>
+        {{/forEach}}
+      </div>
 
-      {{#forEach questions }}
-        <button>{{ JSONstringify this }}</button>
+      {{#forEach exercise.contexts }}
+        <div class="exercise">
+          {{> wall wall=question }}
+
+          <div class="exercise__choices">
+            {{#forEach choices}}
+              <button>
+                {{> wall wall=this}}
+              </button>
+            {{/forEach}}
+          </div>
+
+          <div class="exercise__explanation">
+            <h3 class="exercise__explanation-title">Explications</h3>
+            {{#forEach explanations}}
+              <div class="exercise__hint">
+                {{> wall wall=this }}
+              </div>
+            {{/forEach}}
+          </div>
+          <button class="exercise__hint-trigger">Un indice?</button>
+        </div>
       {{/forEach}}
-
-      {{> wall wall=content }}
     </main>
   </body>
 </html>

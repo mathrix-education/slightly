@@ -157,7 +157,7 @@ module.exports = (env: string) => {
       new ForkTsCheckerWebpackPlugin(),
       // HTML
       ...plugins,
-      new HtmlWebpackTagsPlugin({
+      !production && new HtmlWebpackTagsPlugin({
         tags: ['http://localhost:35729/livereload.js'],
         usePublicPath: false,
       }),

@@ -17,10 +17,9 @@ tsc -p "$root/src/types/tsconfig.json" --emitDeclarationOnly
 jq ".version=\"$version\"" "$root/src/types/package.json" > "$dist/package.json"
 
 # shellcheck disable=SC2086
-cat $dist/*.d.ts | sed '/^import/d' > "$dist/index.d.ts.tmp"
-echo "export {}" >> index.d.ts.tmp
+cat $dist/*/ts/*.d.ts | sed '/^import/d' > "$dist/index.d.ts.tmp"
+echo "export {}" >> "$dist/index.d.ts.tmp"
 # shellcheck disable=SC2086
-rm $dist/*.d.ts
+rm -r $dist/*/
 mv "$dist/index.d.ts.tmp" "$dist/index.d.ts"
-
 cp "$root/LICENSE.md" "$dist/LICENSE.md"

@@ -31,6 +31,4 @@ export class Exercise {
   @ManyToOne(type => Subject, subject => subject.exercises)
   @JoinColumn({ name: 'subject_id' })
   subject: Promise<Subject>;
-
-  contexts?: {question: Wall, choices: Wall[], solutions: number[], explanations: Wall[]}[];
 }

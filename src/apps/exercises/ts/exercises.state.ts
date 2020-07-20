@@ -1,5 +1,5 @@
-export enum ExercisesState {
-  playing = 'exercises.playing',
-  success = 'exercises.end',
-  failure = 'exercises.failure',
+import {ExercisesStatus} from './exercises.status';
+
+export class ExercisesState {
+  status: ExercisesStatus;
 }

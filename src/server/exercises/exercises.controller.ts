@@ -21,15 +21,9 @@ export class ExercisesController {
       const subject = await exercise.subject;
       const exercises = await subject.exercises;
 
-      exercise.contexts = [];
-      exercise.questions.forEach((v, index) => {
-        exercise.contexts.push({
-          question: this.parser.parse(exercise.questions[index]),
-          choices: exercise.choices[index].map(c => this.parser.parse(c)),
-          solutions: exercise.solutions[index],
-          explanations: exercise.explanations[index].map((e) => this.parser.parse(e)),
-        })
-      });
+      exercise.questions = exercise.questions.map(q => this.parser.parse(q));
+      exercise.choices = exercise.choices.map(c1 => c1.map(c2 => this.parser.parse(c2)));
+      exercise.explanations = exercise.explanations.map(e1 => e1.map(e2 => this.parser.parse(e2)));
 
       return {
         subject,

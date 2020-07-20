@@ -11,7 +11,7 @@ hbs.registerHelper('katex', (text: string, options) => {
       if (index % 2 === 0) {
         return part;
       } else {
-        return katex.renderToString(part);
+        return katex.renderToString(part, {output: 'html'});
       }
     })
     .join('\n');
@@ -20,7 +20,7 @@ hbs.registerHelper('katex', (text: string, options) => {
 });
 
 hbs.registerHelper('katexEq', (text: string) => {
-  const result = katex.renderToString(text, {displayMode: true});
+  const result = katex.renderToString(text, {displayMode: true, output: 'html'});
   return new hbs.handlebars.SafeString(result);
 });
 

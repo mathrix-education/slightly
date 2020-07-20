@@ -1,48 +1,19 @@
 import {App} from '../../app';
+import {ExercisesElement} from './exercises.element';
 import {ExercisesEvents} from './exercises.events';
-import {ExercisesState} from './exercises.state';
+import {ExercisesStatus} from './exercises.status';
 
 export class ExercisesApp extends App {
   private readonly $linkBtns = this.$state.querySelectorAll<HTMLButtonElement>('.exercise__link');
-  private readonly $hintTrigger = this.$<HTMLButtonElement>('.exercise__hint-trigger');
-  private readonly $explanations = this.$<HTMLDivElement>('.exercise__explanation');
-  private readonly $hints = this.$state.querySelectorAll<HTMLDivElement>('.exercise__hint');
-  private readonly totalHints = this.$hints.length;
+  private readonly $exercises = this.$state.querySelectorAll<HTMLDivElement>('.exercise');
+  private readonly exercises: ExercisesElement[] = [];
 
   constructor() {
     super();
 
+    this.$exercises.forEach($exercise => this.exercises.push(new ExercisesElement(this, $exercise)));
+
     this.bind();
-    this.init();
-  }
-
-  get state(): ExercisesState {
-    return this.$state.dataset.state as ExercisesState;
-  }
-
-  set state(newState: ExercisesState) {
-    this.$state.dataset.state = newState;
-  }
-
-  get hints() {
-    return parseInt(this.$state.dataset.hints, 10);
-  }
-
-  set hints(newHints: number) {
-    this.$state.dataset.hints = newHints.toString(10);
-
-    if (this.hints >= this.totalHints - 2) {
-      this.$hintTrigger.style.display = 'none';
-    } else {
-      delete this.$hintTrigger.style.display;
-    }
-
-    // Reveal hints accordingly
-    this.$explanations.style.display = this.hints !== -1 ? 'block' : 'none';
-
-    this.$hints.forEach(($hint, index) => {
-      $hint.style.display = index <= this.hints ? 'block' : 'none';
-    });
   }
 
   protected bind(): void {
@@ -53,12 +24,15 @@ export class ExercisesApp extends App {
         });
       });
     });
-
-    this.$hintTrigger.addEventListener('click', () => this.hints++);
   }
 
-  protected init() {
-    this.state = ExercisesState.playing;
-    this.hints = -1;
+  public onExerciseEnd() {
+    const ready = this.exercises.every((exercise) => {
+      return [ExercisesStatus.success, ExercisesStatus.failure].includes(exercise.state.status);
+    });
+
+    if (ready) {
+      this.bridge.emit(ExercisesEvents.end, this.exercises.map(e => e.state));
+    }
   }
 }

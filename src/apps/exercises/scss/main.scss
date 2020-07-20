@@ -35,10 +35,25 @@
 .exercise__hint {
   display: none;
 }
+
 .exercise__choices {
   display: grid;
   grid-template-columns: auto;
   grid-row-gap: 16px;
+}
+
+.exercise[data-status="exercises.success"] {
+  .exercise__choice[data-clicked="true"] {
+    color: $white;
+    background-color: $green;
+  }
+}
+
+.exercise[data-status="exercises.failure"] {
+  .exercise__choice[data-clicked="true"] {
+    color: $white;
+    background-color: $red;
+  }
 }
 
 .exercise__explanation {

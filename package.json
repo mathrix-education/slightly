@@ -24,7 +24,6 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
-    "@mathrix-education/discovery.scss": "0.1.0-dev.14",
     "@nestjs/common": "^7.3.2",
     "@nestjs/core": "^7.3.2",
     "@nestjs/platform-express": "^7.3.2",
@@ -43,6 +42,7 @@
     "typeorm": "^0.2.25"
   },
   "devDependencies": {
+    "@mathrix-education/discovery.scss": "0.1.0-dev.15",
     "@nestjs/cli": "^7.0.0",
     "@nestjs/schematics": "^7.0.0",
     "@nestjs/testing": "^7.3.2",

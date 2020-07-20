@@ -30,7 +30,7 @@
 
           <div class="exercise__choices">
             {{#forEach choices}}
-              <button>
+              <button class="mtx-btn mtx-btn-secondary exercise__choice">
                 {{> wall wall=this}}
               </button>
             {{/forEach}}
@@ -44,7 +44,8 @@
               </div>
             {{/forEach}}
           </div>
-          <button class="mtx-btn mtx-btn-primary exercise__hint-trigger">Un indice?</button>
+
+          <p class="exercise__hint-trigger">Un indice?</p>
         </div>
       {{/forEach}}
     </main>

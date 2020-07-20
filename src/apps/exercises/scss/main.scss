@@ -1,3 +1,61 @@
+@import '~@mathrix-education/discovery.scss/variables/colors';
+@import '~@mathrix-education/discovery.scss/mixins/borders';
+@import '~@mathrix-education/discovery.scss/mixins/fonts';
+@import '~@mathrix-education/discovery.scss/mixins/paddings';
+
+.exercise__selector {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  .exercise__link {
+    color: $green;
+    @include poppins(14px);
+    background-color: transparent;
+    border: solid 1px $green;
+    @include padding-y(1);
+    @include padding-x(4);
+    border-right: 0;
+
+    &:active, &:hover, &:focus {
+      outline: 0;
+    }
+
+    &:first-child {
+      @include border-left-radius(1000);
+    }
+
+    &:last-child {
+      @include border-right-radius(1000);
+      border-right: solid 1px $green;
+    }
+  }
+}
+
 .exercise__hint {
   display: none;
+}
+.exercise__choices {
+  display: grid;
+  grid-template-columns: auto;
+  grid-row-gap: 16px;
+}
+
+.exercise__explanation {
+  background-color: $green-l2;
+  margin: 16px -16px;
+  padding: 16px;
+
+  .exercise__explanation-title {
+    margin-top: 0;
+    font-size: 16px;
+    color: $green;
+  }
+}
+
+.exercise__hint-trigger {
+  margin: 0;
+  @include poppins(14px);
+  color: $green;
+  text-align: right;
 }

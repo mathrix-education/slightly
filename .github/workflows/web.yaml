@@ -85,6 +85,7 @@ jobs:
       - name: Build
         if: needs.mappings.outputs.skip_build != '1'
         run: |
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GH_REGISTRY_TOKEN }}" > ~/.npmrc
           npm install
           npm run build
       - name: Build Docker image

@@ -23,7 +23,7 @@ export class NsViewBridgeWeb {
     console.log(`Un-registered event handler on "${eventName}"`);
   }
 
-  public emit(eventName: string, data: any): void {
+  public emit<T>(eventName: string, data: T): void {
     console.log(`Emitted "${eventName}" with data`, data);
   }
 }

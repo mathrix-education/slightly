@@ -2,7 +2,8 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "outDir": "../../dist/types",
-    "incremental": false
+    "incremental": false,
+    "removeComments": false
   },
   "exclude": [
     "node_modules",

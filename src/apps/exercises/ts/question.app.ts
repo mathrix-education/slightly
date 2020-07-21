@@ -3,13 +3,13 @@ import {ExercisesApp} from './exercises.app';
 import {ExercisesState} from './exercises.state';
 import {ExercisesStatus} from './exercises.status';
 
-export class ExercisesElement extends App {
+export class QuestionApp extends App {
   $trigger = this.$state.querySelector<HTMLDivElement>('.exercise__hint-trigger');
   $choices = this.$state.querySelectorAll<HTMLButtonElement>('.exercise__choice');
   $explanation = this.$state.querySelector<HTMLDivElement>('.exercise__explanation');
   $hints = this.$state.querySelectorAll<HTMLDivElement>('.exercise__hint');
 
-  constructor(private readonly app: ExercisesApp, $exercise) {
+  constructor(private readonly parent: ExercisesApp, $exercise: HTMLDivElement) {
     super($exercise);
 
     this.hints = -1;
@@ -75,7 +75,11 @@ export class ExercisesElement extends App {
 
     if (this.status === ExercisesStatus.success || this.status === ExercisesStatus.failure) {
       this.hints = Infinity;
-      this.app.onExerciseEnd();
+      this.parent.onExerciseEnd();
+      window.scrollTo({
+        top: this.$choices[0].parentElement.offsetTop - 16,
+        behavior: 'smooth'
+      });
     }
   }
 }

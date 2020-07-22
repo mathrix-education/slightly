@@ -10,6 +10,7 @@ import {
 } from 'path';
 import 'source-map-support/register';
 import {AppModule} from './app.module';
+import './hbs/concat.helper';
 import './hbs/globals.helper';
 import './hbs/katex.helper';
 

@@ -14,3 +14,19 @@
   $border-color: $green,
   $background-color-active: $green-l2,
 );
+
+.card {
+  display: block;
+  @include padding(2);
+  box-shadow: 5px 0px 30px rgba(185, 213, 208, 0.5);;
+  background: white;
+  @include border-radius(2);
+}
+
+.mtx-btn-float-bottom {
+  position: fixed;
+  left: 50%;
+  bottom: 16px;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}

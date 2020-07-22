@@ -1,7 +1,7 @@
-import {NsViewBridgeWeb} from './ns-view-bridge-web';
+import {NsViewBridgeWeb} from '../front/ns-view-bridge-web';
 
 export abstract class App {
-  protected constructor(
+  constructor(
     protected readonly $state = document.querySelector<HTMLDivElement>('#app'),
   ) {
   }

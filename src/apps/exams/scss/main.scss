@@ -1,0 +1,83 @@
+@import "~@mathrix-education/discovery.scss/variables/colors";
+@import "~@mathrix-education/discovery.scss/mixins/fonts";
+
+exam-app {
+  display: block;
+  padding-bottom: 64px;
+
+  &[data-phase='startup'] {
+    .exam__content {
+      display: none;
+    }
+  }
+
+  &:not([data-phase="startup"]) {
+    .exam__startup {
+      display: none;
+    }
+  }
+
+  &:not([data-phase='playing']) {
+    .exam__timer {
+      display: none;
+    }
+
+    .exam__end-btn {
+      display: none;
+    }
+  }
+
+  &:not([data-phase='correction']) {
+    .exam__debriefing-btn {
+      display: none;
+    }
+  }
+
+  &:not([data-phase='playing']):not([data-phase='correction']) {
+    .exam__content {
+      display: none;
+    }
+  }
+
+  &:not([data-phase='debriefing']) {
+    .exam__debriefing {
+      display: none;
+    }
+  }
+
+  .exam__timer {
+    display: flex;
+
+    .exam__timer-icon {
+      width: 30px;
+      height: 30px;
+      margin-right: 16px;
+    }
+
+    .exam__timer-remaining-text {
+      font-size: 14px;
+      line-height: 30px;
+    }
+  }
+
+  &:not([data-success="true"]) {
+    .exam__success {
+      display: none;
+    }
+  }
+
+  &:not([data-success="false"]) {
+    .exam__failure {
+      display: none;
+    }
+  }
+
+  .exam__score-bar {
+    height: 36px;
+    color: $white;
+    background-color: $red;
+    @include poppins-bold(24px);
+    line-height: 36px;
+    text-align: center;
+  }
+}

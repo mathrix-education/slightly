@@ -15,7 +15,7 @@
   </head>
 
   <body>
-    <main id="app" class="{{#unless nextId}}exercise__last{{/unless}}">
+    <exercise-app class="{{#unless nextId}}exercise__last{{/unless}}">
       <h1 class="main-title">{{ katex subject.name }}</h1>
 
       <div class="exercise__selector">
@@ -61,6 +61,6 @@
           Passer à l'exercise suivant
         </button>
       {{/if}}
-    </main>
+    </exercise-app>
   </body>
 </html>

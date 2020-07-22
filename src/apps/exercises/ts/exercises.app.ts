@@ -1,17 +1,18 @@
-import {App} from '../../app';
+import {BridgeElement} from '../../../front/bridge-element';
+import {Element} from '../../../front/element';
 import {
   ExerciseEndEvent,
   ExerciseNavigateEvent,
   ExercisesEvents,
 } from './exercises.events';
-import {ExercisesState} from './exercises.state';
 import {ExercisesStatus} from './exercises.status';
 import {QuestionApp} from './question.app';
 
-export class ExercisesApp extends App {
-  private readonly $linkBtns = this.$state.querySelectorAll<HTMLButtonElement>('.exercise__link');
-  private readonly $exercises = this.$state.querySelectorAll<HTMLDivElement>('.exercise');
-  private readonly $nextBtn = this.$<HTMLButtonElement>('.exercise__next-btn');
+@Element('exercise-app')
+export class ExercisesApp extends BridgeElement {
+  private readonly $linkBtns = this.querySelectorAll<HTMLButtonElement>('.exercise__link');
+  private readonly $exercises = this.querySelectorAll<HTMLDivElement>('.exercise');
+  private readonly $nextBtn = this.querySelector<HTMLButtonElement>('.exercise__next-btn');
   private readonly exercises: QuestionApp[] = [];
 
   constructor() {
@@ -42,11 +43,11 @@ export class ExercisesApp extends App {
   }
 
   get status(): ExercisesStatus {
-    return this.$state.dataset.status as ExercisesStatus;
+    return this.dataset.status as ExercisesStatus;
   }
 
   set status(newStatus: ExercisesStatus) {
-    this.$state.dataset.status = newStatus;
+    this.dataset.status = newStatus;
   }
 
   public onExerciseEnd(): void {

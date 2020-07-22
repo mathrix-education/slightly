@@ -1,0 +1,57 @@
+@import "~@mathrix-education/discovery.scss/variables/colors";
+
+// green blocks
+silicate-container-brick {
+  .wrapper {
+    padding-left: 16px;
+    border-left: solid 2px;
+  }
+
+  b {
+    font-weight: 300;
+  }
+
+  .corollary,
+  .example,
+  .introduction,
+  .law,
+  .lemma,
+  .demonstration,
+  .proposition,
+  .property,
+  .remark,
+  .theorem,
+  .reciprocal,
+  .problematic,
+  .step {
+    h3, b {
+      color: $green;
+    }
+
+    .wrapper {
+      border-color: $green;
+    }
+  }
+
+  // orange blocks
+  .theorem {
+    h3, b {
+      color: $orange;
+    }
+
+    .wrapper {
+      border-color: $orange;
+    }
+  }
+
+  // blue blocks
+  .definition {
+    h3, b {
+      color: $blue;
+    }
+
+    .wrapper {
+      border-color: $blue;
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{{>wall wall=statement classes="question-brick__statement" }}
+
+<div class="question-brick__explanations">
+  <h3 class="question-brick__explanations-title">Réponse</h3>
+
+  {{#each explanations as |explanation| }}
+    <silicate-question-brick-explanation data-points="{{ points }}">
+      {{>wall wall=content }}
+
+      <div class="question-brick__evaluation">
+        <p>As-tu répondu correctement ?</p>
+
+        <button class="mtx-btn mtx-btn-secondary question-brick__evaluation-success">Oui</button>
+        <button class="mtx-btn mtx-btn-secondary question-brick__evaluation-failure">Non</button>
+      </div>
+    </silicate-question-brick-explanation>
+  {{/each}}
+</div>

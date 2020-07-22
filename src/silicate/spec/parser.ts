@@ -1,12 +1,14 @@
 import {Injectable} from '@nestjs/common';
-import {Block} from '../bricks/block/block';
-import {Container} from '../bricks/container/container';
+import {BlockBrick} from '../bricks/block-brick/block-brick';
+import {ContainerBrick} from '../bricks/container-brick/container-brick';
+import {QuestionBrick} from '../bricks/question-brick/question-brick';
 
 @Injectable()
 export class Parser {
   private static readonly BRICK_MAP = {
-    block: Block,
-    container: Container,
+    block: BlockBrick,
+    container: ContainerBrick,
+    question: QuestionBrick
   };
 
   parse(wall: any[], depth = 0, maxDepth = 5) {

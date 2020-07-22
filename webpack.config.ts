@@ -30,7 +30,7 @@ module.exports = (env: string) => {
   const common = [
     join(__dirname, 'src', 'scss', 'main.scss'),
     // Bricks
-    ...glob(join(__dirname, 'src', 'silicate', 'bricks', '*', '*.{scss,bus.ts}'))
+    ...glob(join(__dirname, 'src', 'silicate', 'bricks', '*', '*.{scss,element.ts}'))
       .map((path) => path.replace(__dirname, '.')),
   ];
 
@@ -44,7 +44,7 @@ module.exports = (env: string) => {
       ...common,
       !production && 'webpack/hot/poll?100',
       `./src/apps/${appName}/scss/main.scss`,
-      `./src/apps/${appName}/main.ts`,
+      ...glob(join(__dirname, 'src', 'apps', appName, 'ts', '*.ts')),
     ].filter(e => !!e);
 
     plugins.push(

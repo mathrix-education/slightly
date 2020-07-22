@@ -1,9 +1,7 @@
-<div class="wall">
+<div class="wall {{classes}}">
   {{#each wall}}
-    {{#if kind}}
-      <div class="brick brick-{{ kind }}">
-        {{> (lookup . 'kind') }}
-      </div>
-    {{/if}}
+    <silicate-{{ kind }}-brick class="brick">
+      {{> (concat (lookup . 'kind') '-brick') }}
+    </silicate-{{ kind }}-brick>
   {{/each}}
 </div>

@@ -3,100 +3,102 @@
 @import '~@mathrix-education/discovery.scss/mixins/fonts';
 @import '~@mathrix-education/discovery.scss/mixins/paddings';
 
-.exercise__selector {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+exercise-app {
+  .exercise__selector {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 
-  .exercise__link {
-    color: $green;
+    .exercise__link {
+      color: $green;
+      @include poppins(14px);
+      background-color: transparent;
+      border: solid 1px $green;
+      @include padding-y(1);
+      @include padding-x(4);
+      border-right: 0;
+
+      &:active, &:hover, &:focus {
+        outline: 0;
+      }
+
+      &:first-child {
+        @include border-left-radius(1000);
+      }
+
+      &:last-child {
+        @include border-right-radius(1000);
+        border-right: solid 1px $green;
+      }
+
+      &.exercise__link-current {
+        font-size: 20px;
+        font-weight: 700;
+      }
+    }
+  }
+
+  .exercise__hint {
+    display: none;
+  }
+
+  .exercise__choices {
+    display: grid;
+    grid-template-columns: auto;
+    grid-row-gap: 16px;
+  }
+
+  .exercise[data-status="exercises.success"] {
+    .exercise__choice[data-clicked="true"] {
+      color: $white;
+      background-color: $green;
+    }
+  }
+
+  .exercise[data-status="exercises.failure"] {
+    .exercise__choice[data-clicked="true"] {
+      color: $white;
+      background-color: $red;
+    }
+  }
+
+  .exercise__explanation {
+    background-color: $green-l2;
+    margin: 16px -16px;
+    padding: 16px;
+
+    .exercise__explanation-title {
+      margin-top: 0;
+      font-size: 16px;
+      color: $green;
+    }
+  }
+
+  .exercise__hint-trigger {
+    margin: 0;
     @include poppins(14px);
-    background-color: transparent;
-    border: solid 1px $green;
-    @include padding-y(1);
-    @include padding-x(4);
-    border-right: 0;
-
-    &:active, &:hover, &:focus {
-      outline: 0;
-    }
-
-    &:first-child {
-      @include border-left-radius(1000);
-    }
-
-    &:last-child {
-      @include border-right-radius(1000);
-      border-right: solid 1px $green;
-    }
-
-    &.exercise__link-current {
-      font-size: 20px;
-      font-weight: 700;
-    }
-  }
-}
-
-.exercise__hint {
-  display: none;
-}
-
-.exercise__choices {
-  display: grid;
-  grid-template-columns: auto;
-  grid-row-gap: 16px;
-}
-
-.exercise[data-status="exercises.success"] {
-  .exercise__choice[data-clicked="true"] {
-    color: $white;
-    background-color: $green;
-  }
-}
-
-.exercise[data-status="exercises.failure"] {
-  .exercise__choice[data-clicked="true"] {
-    color: $white;
-    background-color: $red;
-  }
-}
-
-.exercise__explanation {
-  background-color: $green-l2;
-  margin: 16px -16px;
-  padding: 16px;
-
-  .exercise__explanation-title {
-    margin-top: 0;
-    font-size: 16px;
     color: $green;
+    text-align: right;
   }
-}
 
-.exercise__hint-trigger {
-  margin: 0;
-  @include poppins(14px);
-  color: $green;
-  text-align: right;
-}
-
-
-.exercise__next-btn {
-  display: none;
-  position: fixed;
-  bottom: 16px;
-  left: 16px;
-  right: 16px;
-  width: calc(100vw - 32px);
-}
-
-#app[data-status="exercises.success"],
-#app[data-status="exercises.failure"] {
-  &:not(.exercise__last) {
-    padding-bottom: 40px;
-  }
 
   .exercise__next-btn {
-    display: block;
+    display: none;
+    position: fixed;
+    bottom: 16px;
+    left: 16px;
+    right: 16px;
+    width: calc(100vw - 32px);
+  }
+
+  &[data-status="exercises.success"],
+  &[data-status="exercises.failure"] {
+    &:not(.exercise__last) {
+      padding-bottom: 40px;
+    }
+
+    .exercise__next-btn {
+      display: block;
+    }
   }
 }

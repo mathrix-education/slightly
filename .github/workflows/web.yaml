@@ -97,7 +97,7 @@ jobs:
             --build-arg "RELEASE=${{ needs.mappings.outputs.semver }}" \
             --tag ${{ needs.mappings.outputs.image }} \
             .
-      - name: Push Docker image to Google Cloud Container Registry
+      - name: Push Docker image to Google Cloud ContainerBrick Registry
         if: needs.mappings.outputs.skip_build != '1'
         run: docker push ${{ needs.mappings.outputs.image }}
       - name: Add "latest" tag
@@ -114,7 +114,7 @@ jobs:
             ${{ needs.mappings.outputs.image_version }}
 
   # ============================================================================
-  # Deploy the container to the Google Cloud Kubernetes Cluster.
+  # Deploy the container-brick to the Google Cloud Kubernetes Cluster.
   # ============================================================================
   deploy_gke:
     name: Deploy on Google Kubernetes Engine

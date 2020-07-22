@@ -1,0 +1,16 @@
+@import "~@mathrix-education/discovery.scss/variables/colors";
+
+silicate-question-brick-explanation {
+  &[data-success="true"] {
+    .question-brick__evaluation-success {
+      color: $white!important;
+      background-color: $green!important;
+    }
+  }
+  &[data-success="false"] {
+    .question-brick__evaluation-failure {
+      color: $white!important;
+      background-color: $red!important;
+    }
+  }
+}

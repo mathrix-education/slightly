@@ -15,10 +15,68 @@
   </head>
 
   <body>
-    <main id="app">
+    <exam-app data-duration="{{ multiply duration 60}}" data-total="{{ total }}">
       <h1 class="main-title">{{ katex name }}</h1>
 
-      {{> wall wall=content }}
-    </main>
+      <div class="exam__startup">
+        <p>Tu es sur le point de démarrer une interrogation de {{duration}} minutes.</p>
+        <p>Mets-toi en condition et clique sur le bouton Commencer dès que tu es prêt.e !</p>
+
+        <button class="exam__start-btn mtx-btn mtx-btn-primary">Commencer</button>
+      </div>
+
+      <div class="exam__content">
+        <div class="exam__timer">
+          <img class="exam__timer-icon" src="img/icons/icon-time.svg" alt="Icône temps restant">
+
+          <span class="exam__timer-remaining-text">
+            Temps restant : <span class="exam__timer-remaining-time">{{duration}}:00</span>
+          </span>
+        </div>
+
+        {{> wall wall=content classes="exam__content card" }}
+
+        <button class="mtx-btn mtx-btn-primary mtx-btn-float-bottom exam__next exam__end-btn">
+          J'ai terminé
+        </button>
+
+        <button class="mtx-btn mtx-btn-primary mtx-btn-float-bottom exam__next exam__debriefing-btn" disabled>
+          Passer au debriefing
+        </button>
+      </div>
+
+      <div class="exam__debriefing">
+        <div class="card">
+          <div class="exam__success">
+            <h3>Bravo !<br>Tu as réussi cette interro !</h3>
+          </div>
+          <div class="exam__failure">
+            <h3>Oups...<br>Tu n'as pas obtenu la moyenne à cette interro</h3>
+          </div>
+
+          <div class="exam__score-bar">
+            <span class="exam__score"></span>/{{total}}
+          </div>
+        </div>
+
+        <p>N'oublie pas :</p>
+
+        <ul>
+          <li>Tu t’es toi-même noté et il se peut que tu aies été plus ou moins sévère dans ta notation.</li>
+          <li>L’essentiel est de comprendre la correction et la source de tes erreurs !</li>
+          <li>Quand tu auras identifié la ou les sources d’erreurs, reprends les cours ou exercices qui te permettront
+            de consolider ces notions.
+          </li>
+          <li>Entraine-toî ensuite à nouveau sur ces notions pour bien tester tes connaissances avant le contrôle
+            final.
+          </li>
+        </ul>
+
+        <div class="exam__debriefing-btn-grid">
+          <button class="exam__correction-btn mtx-btn mtx-btn-secondary">Revoir la correction</button>
+          <button class="exam__retry-btn mtx-btn mtx-btn-primary">Recommencer</button>
+        </div>
+      </div>
+    </exam-app>
   </body>
 </html>

@@ -11,20 +11,20 @@
     <link href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
   </head>
 
   <body>
     <flashcard-app>
-      <h1 class="main-title">{{ katex name }}</h1>
+      <h1 class="app-title">{{ katex name }}</h1>
 
-      <div class="flashcard__play-screen">
+      <section class="flashcard__screen flashcard__play-screen">
         <div class="flashcard__progress">
           <div class="flashcard__progress-buffer"></div>
         </div>
 
-        <a class="flashcard__revision-btn">Mode révision</a>
-        <a class="flashcard__training-btn">Mode entraînement</a>
+        <a class="flashcard__mode-trigger flashcard__revision-trigger">Mode révision</a>
+        <a class="flashcard__mode-trigger flashcard__training-trigger">Mode entraînement</a>
 
         <div class="flashcard__container">
           {{#each cards as |card|}}
@@ -40,22 +40,30 @@
         </div>
 
         <div class="flashcard__footer">
-          <button class="flashcard__reveal-btn">Voir la réponse</button>
-          <button class="flashcard__wrong-btn">J'ai faux</button>
-          <button class="flashcard__right-btn">J'ai juste</button>
-        </div>
-      </div>
+          <button class="flashcard__reveal-btn btn btn-primary">Voir la réponse</button>
 
-      <div class="flashcard__end-screen">
+          <button class="flashcard__wrong-btn btn btn-secondary">
+            <i class="material-icons">highlight_off</i>
+            J'ai faux
+          </button>
+
+          <button class="flashcard__right-btn btn btn-secondary">
+            <i class="material-icons">check_circle</i>J'ai juste
+          </button>
+        </div>
+      </section>
+
+      <section class="flashcard__screen flashcard__result-screen">
         <div class="flashcard__score">
-          <span class="flashcard__score-percent"></span>
-          %
+          <div class="flashcard__score-percent"></div>
+          de réussite
         </div>
-        de réussite
 
-        <button class="flashcard__retry-btn">Recommencer</button>
-        <button class="flashcard__end-btn">Terminer</button>
-      </div>
+        <div class="flashcard__buttons">
+          <button class="flashcard__retry-btn btn btn-secondary">Recommencer</button>
+          <button class="flashcard__end-btn btn btn-primary">Terminer</button>
+        </div>
+      </section>
     </flashcard-app>
   </body>
 </html>

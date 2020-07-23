@@ -35,7 +35,7 @@
           <div class="exercise__choices">
             {{#forEach (itemAt ../exercise.choices (minus index 1)) }}
               <button
-                class="mtx-btn mtx-btn-secondary exercise__choice"
+                class="btn btn-secondary exercise__choice"
                 data-question="{{ minus ../index 1 }}"
                 data-valid="{{inArray (itemAt ../../exercise.solutions (minus ../index 1)) (minus index 1) }}">
                 {{> wall wall=this}}
@@ -57,7 +57,7 @@
       {{/forEach}}
 
       {{#if nextId}}
-        <button class="mtx-btn mtx-btn-primary exercise__next-btn" data-id="{{ nextId }}">
+        <button class="btn btn-primary exercise__next-btn" data-id="{{ nextId }}">
           Passer à l'exercise suivant
         </button>
       {{/if}}

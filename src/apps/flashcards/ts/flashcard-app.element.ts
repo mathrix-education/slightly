@@ -1,16 +1,15 @@
 import {BridgeElement} from '../../../front/bridge-element';
 import {Element} from '../../../front/element';
 import {FlashcardsEvents} from './flashcards.events';
-import {FlashcardMode} from './flashcards.mode';
+import {FlashcardPhase} from './flashcards.mode';
 import {FlashcardsState} from './flashcards.state';
-import {FlashcardsStatus} from './flashcards.status';
 
 @Element('flashcard-app')
 export class FlashcardAppElement extends BridgeElement {
   private readonly $progress = this.querySelector<HTMLDivElement>('.flashcard__progress-buffer');
   private readonly $flashcards = this.querySelectorAll<HTMLDivElement>('.flashcard');
-  private readonly $trainingBtn = this.querySelector<HTMLButtonElement>('.flashcard__training-btn');
-  private readonly $revisionBtn = this.querySelector<HTMLButtonElement>('.flashcard__revision-btn');
+  private readonly $trainingBtn = this.querySelector<HTMLButtonElement>('.flashcard__training-trigger');
+  private readonly $revisionBtn = this.querySelector<HTMLButtonElement>('.flashcard__revision-trigger');
   private readonly $revealBtn = this.querySelector<HTMLButtonElement>('.flashcard__reveal-btn');
   private readonly $wrongBtn = this.querySelector<HTMLButtonElement>('.flashcard__wrong-btn');
   private readonly $rightBtn = this.querySelector<HTMLButtonElement>('.flashcard__right-btn');
@@ -22,7 +21,11 @@ export class FlashcardAppElement extends BridgeElement {
     super();
 
     this.bind();
-    this.initializeRevisionMode(true);
+
+    this.phase = FlashcardPhase.result;
+    this.current = 0;
+    this.flipped = false;
+    this.score = 0;
   }
 
   protected bind(): void {
@@ -54,20 +57,12 @@ export class FlashcardAppElement extends BridgeElement {
     });
   }
 
-  get status(): FlashcardsStatus {
-    return this.dataset.status as FlashcardsStatus ?? FlashcardsStatus.playing;
+  get phase(): FlashcardPhase {
+    return this.dataset.phase as FlashcardPhase ?? FlashcardPhase.revision;
   }
 
-  set status(newStatus: FlashcardsStatus) {
-    this.dataset.status = newStatus;
-  }
-
-  get mode(): FlashcardMode {
-    return this.dataset.mode as FlashcardMode ?? FlashcardMode.revision;
-  }
-
-  set mode(newMode: FlashcardMode) {
-    this.dataset.mode = newMode;
+  set phase(newPhase: FlashcardPhase) {
+    this.dataset.phase = newPhase;
   }
 
   get size(): number {
@@ -99,7 +94,7 @@ export class FlashcardAppElement extends BridgeElement {
 
     if (index === this.size) {
       // This is the end
-      this.status = FlashcardsStatus.end;
+      this.phase = FlashcardPhase.result;
       this.bridge.emit(FlashcardsEvents.end, this.state);
     }
   }
@@ -123,8 +118,7 @@ export class FlashcardAppElement extends BridgeElement {
 
   get state(): FlashcardsState {
     return {
-      mode: this.mode,
-      status: this.status,
+      phase: this.phase,
       current: this.current,
       flipped: this.flipped,
       score: this.score,
@@ -133,8 +127,7 @@ export class FlashcardAppElement extends BridgeElement {
   }
 
   initializeRevisionMode(reset = true): void {
-    this.mode = FlashcardMode.revision;
-    this.status = FlashcardsStatus.playing;
+    this.phase = FlashcardPhase.revision;
 
     if (reset) {
       this.current = 0;
@@ -146,7 +139,7 @@ export class FlashcardAppElement extends BridgeElement {
   }
 
   initializeTrainingMode(): void {
-    this.mode = FlashcardMode.training;
+    this.phase = FlashcardPhase.training;
     this.bridge.emit(FlashcardsEvents.mode, this.state);
   }
 

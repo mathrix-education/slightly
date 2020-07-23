@@ -1,8 +1,7 @@
 @import "~@mathrix-education/discovery.scss/variables/colors";
-@import "~@mathrix-education/discovery.scss/mixins/fonts";
+@import "~@mathrix-education/discovery.scss/mixins/typography";
 
 silicate-question-brick {
-
   .question-brick__explanations-title {
     color: $green;
   }

@@ -1,12 +1,15 @@
 @import '../../node_modules/normalize.css/normalize.css';
-@import "ui";
+@import '~@mathrix-education/discovery.scss/mixins/spacing';
+@import '~@mathrix-education/discovery.scss/mixins/typography';
+@import 'ui';
+
+* {
+  box-sizing: border-box;
+}
 
 body {
-  padding: 16px;
-  font-family: 'Open Sans', Helvetica, sans-serif;
   font-weight: 300;
-  font-size: 16px;
-  line-height: 1.4rem;
+  @include body();
 }
 
 a {
@@ -22,15 +25,10 @@ figure {
   margin: 24px 0;
 }
 
-button .brick {
-  margin: 0;
-}
-
-.main-title {
+.app-title {
   color: $green;
+  @include poppins(24px);
   margin: 0 0 32px 0;
-  font-size: 24px;
-  font-family: 'Poppins', Helvetica, sans-serif;
   font-weight: 500;
   line-height: 2.1rem;
 }

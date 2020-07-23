@@ -1,9 +1,7 @@
-import {FlashcardMode} from './flashcards.mode';
-import {FlashcardsStatus} from './flashcards.status';
+import {FlashcardPhase} from './flashcards.mode';
 
 export interface FlashcardsState {
-  mode: FlashcardMode;
-  status: FlashcardsStatus;
+  phase: FlashcardPhase;
   current: number;
   flipped: boolean;
   score: number;

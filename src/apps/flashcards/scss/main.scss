@@ -1,9 +1,67 @@
-@import "~@mathrix-education/discovery.scss/variables/colors";
+@import '~@mathrix-education/discovery.scss/variables/colors';
+@import '~@mathrix-education/discovery.scss/mixins/spacing';
+@import '~@mathrix-education/discovery.scss/mixins/typography';
 
-@mixin flashcard-box {
-  background-color: #fff;
+
+flashcard-app {
+  display: grid;
+  grid-template-rows: max-content auto;
+  grid-row-gap: 8px;
+  min-height: 100vh;
+  @include padding(2);
+
+  &:not([data-phase='revision']) {
+    .flashcard__training-trigger {
+      display: none;
+    }
+
+    .flashcard__reveal-btn {
+      display: none;
+    }
+
+    .flashcard__progress {
+      display: none;
+    }
+  }
+
+  &:not([data-phase='training']) {
+    .flashcard__revision-trigger {
+      display: none;
+    }
+  }
+
+  &:not([data-flipped='true']) {
+    .flashcard__right-btn, .flashcard__wrong-btn {
+      display: none;
+    }
+  }
+
+  &:not([data-phase='result']) {
+    .flashcard__result-screen {
+      display: none;
+    }
+  }
+
+  &[data-phase='result'] {
+    .flashcard__play-screen {
+      display: none;
+    }
+  }
+}
+
+.flashcard__screen {
+}
+
+.flashcard__play-screen {
+  display: grid;
+  grid-template-rows: max-content max-content auto max-content;
+  grid-row-gap: 8px;
+}
+
+@mixin flashcard-card {
+  background-color: #ffffff;
   border-radius: 16px;
-  box-shadow: 5px 0 30px rgba(185, 213, 208, .5);
+  box-shadow: 5px 0 30px hsla(0, 0%, 72.5%, .6);
 }
 
 .flashcard__progress {
@@ -21,14 +79,9 @@
   }
 }
 
-.flashcard-mode {
-  margin: 8px 0;
-  text-align: right;
-}
-
-.flashcard-mode-button {
-  font-size: 14px;
-  font-weight: 400;
+.flashcard__mode-trigger {
+  justify-self: end;
+  @include poppins(14px);
 }
 
 .flashcard {
@@ -36,14 +89,16 @@
   text-align: center;
 }
 
-.flashcard__right-btn, .flashcard__wrong-btn {
-  display: none;
+.flashcard__footer {
+  display: grid;
+  grid-auto-flow: column;
+  grid-column-gap: spacing(2);
+  justify-content: center;
 }
 
-
-[data-mode='revision'] {
-  .flashcard__revision-btn {
-    display: none;
+[data-phase='revision'] {
+  .flashcard__container {
+    align-self: center;
   }
 
   .flashcard {
@@ -60,7 +115,7 @@
     }
 
     .flashcard__front, .flashcard__back {
-      @include flashcard-box;
+      @include flashcard-card;
       position: absolute;
       top: 0;
       right: 0;
@@ -105,22 +160,16 @@
     }
 
     .flashcard__right-btn, .flashcard__wrong-btn {
-      display: block;
+      display: grid;
+      grid-auto-flow: column;
+      grid-column-gap: spacing(1);
     }
   }
 }
 
-[data-mode='training'] {
-  .flashcard__progress {
-    display: none;
-  }
-
-  .flashcard__training-btn {
-    display: none;
-  }
-
+[data-phase='training'] {
   .flashcard {
-    @include flashcard-box;
+    @include flashcard-card;
     padding: 8px;
   }
 
@@ -129,12 +178,30 @@
   }
 }
 
-.flashcard__end-screen {
-  display: none;
+.flashcard__result-screen {
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  grid-row-gap: spacing(2);
 }
 
-[data-status='end'] {
-  .flashcard__end-screen {
-    display: block;
+.flashcard__score {
+  justify-self: center;
+  align-self: center;
+}
+
+.flashcard__score-percent {
+  color: $green;
+  @include poppins-bold(36px);
+  font-weight: 500 !important;
+  &:after {
+    content: ' %';
   }
+}
+
+.flashcard__buttons {
+  display: grid;
+  grid-auto-flow: column;
+  grid-column-gap: spacing(2);
+  grid-template-columns: 1fr 1fr;
 }

@@ -1,4 +1,5 @@
-export enum FlashcardMode {
+export enum FlashcardPhase {
   training = 'training',
   revision = 'revision',
+  result = 'result',
 }

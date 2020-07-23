@@ -27,7 +27,7 @@ const appsNames = ['courses', 'flashcards', 'exercises', 'exams'];
 module.exports = (env: string) => {
   const production = ['production', 'prod'].includes(env);
 
-  const common = [
+  const silicate = [
     join(__dirname, 'src', 'scss', 'main.scss'),
     // Bricks
     ...glob(join(__dirname, 'src', 'silicate', 'bricks', '*', '*.{scss,element.ts}'))
@@ -41,7 +41,6 @@ module.exports = (env: string) => {
     const chunk = appName;
 
     entrypoints[chunk] = [
-      ...common,
       !production && 'webpack/hot/poll?100',
       `./src/apps/${appName}/scss/main.scss`,
       ...glob(join(__dirname, 'src', 'apps', appName, 'ts', '*.ts')),
@@ -53,7 +52,7 @@ module.exports = (env: string) => {
         filename: join(dist, 'views', `${appName}.hbs`),
         alwaysWriteToDisk: true,
         minify: false,
-        chunks: ['bricks', chunk],
+        chunks: ['silicate', chunk],
         templateParameters: (compilation, assets, assetTags) => {
           // Patch link and src attributes to match webpack's publicPath
           if (!production) {
@@ -95,6 +94,7 @@ module.exports = (env: string) => {
   const config: Configuration = {
     entry: {
       server: production ? './src/server/main.ts' : ['webpack/hot/poll?100', './src/server/main.ts'],
+      silicate,
       ...entrypoints,
     },
     mode: production ? 'production' : 'development',
@@ -197,7 +197,7 @@ module.exports = (env: string) => {
       path: dist,
       publicPath: 'assets',
       filename: (context) => {
-        if (!appsNames.includes(context.chunk.name) && context.chunk.name !== 'bricks') {
+        if (!appsNames.includes(context.chunk.name) && context.chunk.name !== 'silicate') {
           return '[name].js';
         }
 

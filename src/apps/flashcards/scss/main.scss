@@ -194,6 +194,7 @@ flashcard-app {
   color: $green;
   @include poppins-bold(36px);
   font-weight: 500 !important;
+
   &:after {
     content: ' %';
   }

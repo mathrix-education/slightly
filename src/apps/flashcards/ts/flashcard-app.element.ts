@@ -1,79 +1,94 @@
 import {BridgeElement} from '../../../front/bridge-element';
 import {Element} from '../../../front/element';
-import {FlashcardsEvents} from './flashcards.events';
-import {FlashcardPhase} from './flashcards.mode';
-import {FlashcardsState} from './flashcards.state';
+import {
+  FlashcardEvents,
+  FlashcardExitEvent,
+  FlashcardResultEvent,
+} from './flashcard.events';
+
+enum FlashcardPhase {
+  training = 'training',
+  revision = 'revision',
+  result = 'result',
+}
 
 @Element('flashcard-app')
 export class FlashcardAppElement extends BridgeElement {
-  private readonly $progress = this.querySelector<HTMLDivElement>('.flashcard__progress-buffer');
-  private readonly $flashcards = this.querySelectorAll<HTMLDivElement>('.flashcard');
-  private readonly $trainingBtn = this.querySelector<HTMLButtonElement>('.flashcard__training-trigger');
-  private readonly $revisionBtn = this.querySelector<HTMLButtonElement>('.flashcard__revision-trigger');
-  private readonly $revealBtn = this.querySelector<HTMLButtonElement>('.flashcard__reveal-btn');
-  private readonly $wrongBtn = this.querySelector<HTMLButtonElement>('.flashcard__wrong-btn');
-  private readonly $rightBtn = this.querySelector<HTMLButtonElement>('.flashcard__right-btn');
-  private readonly $retryBtn = this.querySelector<HTMLButtonElement>('.flashcard__retry-btn');
-  private readonly $endBtn = this.querySelector<HTMLButtonElement>('.flashcard__end-btn');
-  private readonly $score = this.querySelector<HTMLSpanElement>('.flashcard__score-percent');
+  private readonly $progress = this.$<HTMLDivElement>('.flashcard__progress-buffer');
+  private readonly $flashcards = this.$$<HTMLDivElement>('.flashcard');
+  private readonly $trainingBtn = this.$<HTMLButtonElement>('.flashcard__training-trigger');
+  private readonly $revisionBtn = this.$<HTMLButtonElement>('.flashcard__revision-trigger');
+  private readonly $revealBtn = this.$<HTMLButtonElement>('.flashcard__reveal-btn');
+  private readonly $wrongBtn = this.$<HTMLButtonElement>('.flashcard__wrong-btn');
+  private readonly $rightBtn = this.$<HTMLButtonElement>('.flashcard__right-btn');
+  private readonly $retryBtn = this.$<HTMLButtonElement>('.flashcard__retry-btn');
+  private readonly $exitBtn = this.$<HTMLButtonElement>('.flashcard__exit-btn');
+  private readonly $score = this.$<HTMLSpanElement>('.flashcard__score-percent');
 
   constructor() {
     super();
 
-    this.bind();
-
-    this.phase = FlashcardPhase.result;
+    // Setup data
     this.current = 0;
     this.flipped = false;
     this.score = 0;
-  }
+    this.phase = FlashcardPhase.revision;
 
-  protected bind(): void {
-    this.$trainingBtn.addEventListener('click', () => this.initializeTrainingMode());
-
-    this.$revisionBtn.addEventListener('click', () => this.initializeRevisionMode(false));
+    // Revision phase
+    this.$trainingBtn.addEventListener('click', () => this.phase = FlashcardPhase.training);
 
     this.$flashcards.forEach($flashcard => {
-      $flashcard.addEventListener('click', () => {
-        this.reveal();
-      });
+      $flashcard.addEventListener('click', () => this.flip());
     });
-
-    this.$revealBtn.addEventListener('click', () => this.reveal());
+    this.$revealBtn.addEventListener('click', () => this.flip());
 
     this.$rightBtn.addEventListener('click', () => {
+      // Right answer, increment score and go to next flashcard
       this.score++;
       this.current++;
     });
-
-    this.$wrongBtn.addEventListener('click', () => this.current++);
-
-    this.$retryBtn.addEventListener('click', () => {
-      this.initializeRevisionMode(true);
+    this.$wrongBtn.addEventListener('click', () => {
+      // Wrong answer, DO NOT increment score and go to next flashcard
+      this.current++;
     });
 
-    this.$endBtn.addEventListener('click', () => {
-      this.bridge.emit(FlashcardsEvents.end, this.state);
+    // Training phase
+    this.$revisionBtn.addEventListener('click', () => this.phase = FlashcardPhase.revision);
+
+    // Result screen
+    this.$retryBtn.addEventListener('click', () => {
+      this.phase = FlashcardPhase.revision;
+      this.reset();
+    });
+    this.$exitBtn.addEventListener('click', () => {
+      this.bridge.emit<FlashcardExitEvent>(FlashcardEvents.exit, {});
     });
   }
 
-  get phase(): FlashcardPhase {
+  private get phase(): FlashcardPhase {
     return this.dataset.phase as FlashcardPhase ?? FlashcardPhase.revision;
   }
 
-  set phase(newPhase: FlashcardPhase) {
+  private set phase(newPhase: FlashcardPhase) {
     this.dataset.phase = newPhase;
+
+    if (this.phase === FlashcardPhase.result) {
+      this.bridge.emit<FlashcardResultEvent>('flashcard.result', {
+        score: this.score,
+        total: this.size,
+      });
+    }
   }
 
-  get size(): number {
+  private get size(): number {
     return this.$flashcards.length;
   }
 
-  get current(): number {
+  private get current(): number {
     return parseInt(this.dataset.current, 10);
   }
 
-  set current(index: number) {
+  private set current(index: number) {
     // Bound index to [0, n]
     if (index < 0) {
       index = 0;
@@ -85,7 +100,7 @@ export class FlashcardAppElement extends BridgeElement {
     this.$flashcards.forEach(($flashcard) => $flashcard.classList.remove('active'));
 
     if (index !== this.size) {
-      this.$flashcards.item(index).classList.add('active');
+      this.$flashcards[index].classList.add('active');
     }
     this.flipped = false;
 
@@ -95,56 +110,39 @@ export class FlashcardAppElement extends BridgeElement {
     if (index === this.size) {
       // This is the end
       this.phase = FlashcardPhase.result;
-      this.bridge.emit(FlashcardsEvents.end, this.state);
     }
   }
 
-  get flipped(): boolean {
+  private get flipped(): boolean {
     return this.dataset.flipped === 'true';
   }
 
-  set flipped(isFlipped: boolean) {
+  private set flipped(isFlipped: boolean) {
     this.dataset.flipped = isFlipped ? 'true' : 'false';
   }
 
-  get score(): number {
+  private get score(): number {
     return parseInt(this.dataset.score, 10);
   }
 
-  set score(newScore: number) {
+  private set score(newScore: number) {
     this.dataset.score = newScore.toString(10);
     this.$score.textContent = (this.score * 100 / this.size).toFixed(0).toString();
   }
 
-  get state(): FlashcardsState {
-    return {
-      phase: this.phase,
-      current: this.current,
-      flipped: this.flipped,
-      score: this.score,
-      size: this.size,
-    };
+  /**
+   * Reset the data.
+   */
+  private reset(): void {
+    this.current = 0;
+    this.flipped = false;
+    this.score = 0;
   }
 
-  initializeRevisionMode(reset = true): void {
-    this.phase = FlashcardPhase.revision;
-
-    if (reset) {
-      this.current = 0;
-      this.flipped = false;
-      this.score = 0;
-    }
-
-    this.bridge.emit(FlashcardsEvents.mode, this.state);
-  }
-
-  initializeTrainingMode(): void {
-    this.phase = FlashcardPhase.training;
-    this.bridge.emit(FlashcardsEvents.mode, this.state);
-  }
-
-  reveal(): void {
+  /**
+   * Flip the current flashcard.
+   */
+  private flip(): void {
     this.flipped = !this.flipped;
-    this.bridge.emit(FlashcardsEvents.reveal, this.state);
   }
 }

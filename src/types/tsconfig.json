@@ -6,6 +6,6 @@
     "removeComments": false
   },
   "include": [
-    "../apps/*/ts/*events.ts"
+    "../**/*.events.ts"
   ]
 }

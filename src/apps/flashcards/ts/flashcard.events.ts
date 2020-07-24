@@ -1,12 +1,12 @@
 export enum FlashcardEvents {
-  result = 'result',
-  exit = 'exit',
+  result = 'flashcard.result',
+  exit = 'flashcard.exit',
 }
 
 /**
  * Emitted when the user finishes a series of flashcards.
  */
-export class FlashcardResultEvent {
+export interface FlashcardResultEvent {
   /** The total number of flashcards. */
   total: number;
   /** The number of valid flashcards specified by the user (always <= total). */

@@ -19,15 +19,18 @@ npm install @mathrix-education/slightly
 ### Events specification
 All events can be debugged in the browser console using the web version of Slightly.
 
-#### Flashcards
-| Event name                | Fired when                                 | Payload                          |
-|---------------------------|--------------------------------------------|----------------------------------|
-| `FlashcardsEvents.mode`   | User switches to training mode             | [FlashcardState][FlashcardState] |
-| `FlashcardsEvents.mode`   | User switches to revision mode             | [FlashcardState][FlashcardState] |
-| `FlashcardsEvents.reveal` | User reveals a flashcard                   | [FlashcardState][FlashcardState] |
-| `FlashcardsEvents.next`   | User clicks on "J'ai juste" or "J'ai faux" | [FlashcardState][FlashcardState] |
-| `FlashcardsEvents.end`    | User clicks on "J'ai juste" or "J'ai faux" for the last flashcard | [FlashcardState][FlashcardState] |
-| `FlashcardsEvents.end`    | User clicks on the "Terminer" button       | [FlashcardState][FlashcardState] |
-| `FlashcardsEvents.retry`  | User clicks on the "Recommencer" button    | [FlashcardState][FlashcardState] |
+#### Video Brick
+| Event name               | Fired when                           | Payload                |
+|--------------------------|--------------------------------------|------------------------|
+| `'video.fullscreen.in'`  | Video went in fullscreen             | `VideoFullScreenEvent` |
 
-[FlashcardState]: https://github.com/mathrix-education/slightly/blob/main/src/apps/flashcards/ts/flashcards.state.ts
+| Event name               | Fired when                           | Payload                |
+|--------------------------|--------------------------------------|------------------------|
+| `'video.fullscreen.out'` | Video went out from fullscreen       | `VideoFullScreenEvent` |
+
+
+#### Flashcards
+| Event name            | Fired when                           | Payload                |
+|-----------------------|--------------------------------------|------------------------|
+| `'flashcard.result'`  | User finishes for the last flashcard | `FlashcardResultEvent` |
+| `'flashcard.exit'`    | User clicks on the "Terminer" button | `FlashcardExitEvent`   |

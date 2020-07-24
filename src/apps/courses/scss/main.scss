@@ -1,0 +1,6 @@
+@import '~@mathrix-education/discovery.scss/mixins/spacing';
+
+course-app {
+  display: grid;
+  @include padding(2);
+}

@@ -63,6 +63,7 @@
     "@types/terser-webpack-plugin": "^3.0.0",
     "@types/webpack": "^4.41.21",
     "@types/webpack-node-externals": "^1.7.1",
+    "@types/youtube": "0.0.39",
     "@typescript-eslint/eslint-plugin": "3.0.2",
     "@typescript-eslint/parser": "3.0.2",
     "autoprefixer": "^9.8.5",

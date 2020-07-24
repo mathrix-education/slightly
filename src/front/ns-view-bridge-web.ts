@@ -15,7 +15,7 @@ export class NsViewBridgeWeb {
     }
   }
 
-  public on(eventName: string, cb: (data: any) => void): void {
+  public on<T>(eventName: string, cb: (data: T) => void): void {
     console.log(`Registered event handler on "${eventName}"`);
   }
 

@@ -88,26 +88,26 @@ export class FlashcardAppElement extends BridgeElement {
     return parseInt(this.dataset.current, 10);
   }
 
-  private set current(index: number) {
+  private set current(newCurrent: number) {
     // Bound index to [0, n]
-    if (index < 0) {
-      index = 0;
-    } else if (index > this.size) {
-      index = this.size - 1;
+    if (newCurrent < 0) {
+      newCurrent = 0;
+    } else if (newCurrent > this.size) {
+      newCurrent = this.size - 1;
     }
 
-    this.dataset.current = index.toString(10);
+    this.dataset.current = newCurrent.toString(10);
     this.$flashcards.forEach(($flashcard) => $flashcard.classList.remove('active'));
 
-    if (index !== this.size) {
-      this.$flashcards[index].classList.add('active');
+    if (newCurrent !== this.size) {
+      this.$flashcards[newCurrent].classList.add('active');
     }
     this.flipped = false;
 
     // Update progress
-    this.$progress.style.width = (index * 100 / this.size).toFixed(2) + '%';
+    this.$progress.style.width = (newCurrent * 100 / this.size).toFixed(2) + '%';
 
-    if (index === this.size) {
+    if (newCurrent === this.size) {
       // This is the end
       this.phase = FlashcardPhase.result;
     }

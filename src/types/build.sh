@@ -17,7 +17,7 @@ tsc -p "$root/src/types/tsconfig.json" --emitDeclarationOnly
 jq ".version=\"$version\"" "$root/src/types/package.json" > "$dist/package.json"
 
 # shellcheck disable=SC2086
-cat $dist/*/ts/*.d.ts | sed '/^import/d' > "$dist/index.d.ts.tmp"
+cat $(find $dist -name '*.d.ts') | sed '/^import/d' > "$dist/index.d.ts.tmp"
 echo "export {}" >> "$dist/index.d.ts.tmp"
 # shellcheck disable=SC2086
 rm -r $dist/*/

@@ -2,5 +2,5 @@
 
 course-app {
   display: grid;
-  @include padding(2);
+  @include padding-x(2);
 }

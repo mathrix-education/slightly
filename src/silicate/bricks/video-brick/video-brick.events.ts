@@ -1,6 +1,19 @@
 export enum VideoBrickEvents {
-  in = 'video.fullscreen.in',
-  out = 'video.fullscreen.out',
+  load = 'video.load',
+  cue = 'video.cue',
+}
+
+export interface VideoLoadEvent {
+  type: 'youtube';
+  id: string;
+  placement: {
+    top: number,
+    right: number,
+    bottom: number,
+    left: number,
+    width: number,
+    height: number,
+  };
 }
 
 

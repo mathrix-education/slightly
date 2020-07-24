@@ -22,7 +22,15 @@ figure {
 
 .brick {
   display: block;
-  margin: 24px 0;
+  @include margin-y(3);
+
+  &:first-child {
+    @include margin-top(0);
+  }
+
+  &:last-child {
+    @include margin-bottom(0);
+  }
 }
 
 .app-title {

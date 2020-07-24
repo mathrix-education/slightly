@@ -1,22 +1,17 @@
-/*:-webkit-full-screen,:-moz-full-screen,:-ms-fullscreen,:fullscreen {
-//  display: none;
-//}*/
+@import '~@mathrix-education/discovery.scss/variables/colors';
+@import '~@mathrix-education/discovery.scss/mixins/spacing';
 
 silicate-video-brick {
-  .ratio-16-by-9 {
-    width: calc(100vw - 32px);
+  > .player {
+    margin: 0 -16px;
     overflow: hidden;
     padding-bottom: 56.25%;
     position: relative;
     height: 0;
-  }
+    border: dashed 8px $gray-title-disabled;
 
-  .ratio-16-by-9 iframe {
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    border-radius: 8px;
+    &.ratio-16-by-9 {
+      padding-bottom: 56.25%;
+    }
   }
 }

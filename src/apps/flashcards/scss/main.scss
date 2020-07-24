@@ -5,10 +5,9 @@
 
 flashcard-app {
   display: grid;
-  grid-template-rows: max-content auto;
-  grid-row-gap: 8px;
+  grid-template-rows: auto;
   min-height: 100vh;
-  @include padding(2);
+  @include padding-x(2);
 
   &:not([data-phase='revision']) {
     .flashcard__training-trigger {

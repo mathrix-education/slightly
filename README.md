@@ -20,14 +20,9 @@ npm install @mathrix-education/slightly
 All events can be debugged in the browser console using the web version of Slightly.
 
 #### Video Brick
-| Event name               | Fired when                           | Payload                |
-|--------------------------|--------------------------------------|------------------------|
-| `'video.fullscreen.in'`  | Video went in fullscreen             | `VideoFullScreenEvent` |
-
-| Event name               | Fired when                           | Payload                |
-|--------------------------|--------------------------------------|------------------------|
-| `'video.fullscreen.out'` | Video went out from fullscreen       | `VideoFullScreenEvent` |
-
+| Event name     | Fired when       | Payload          |
+|----------------|------------------|------------------|
+| `'video.load'` | Video was loaded | `VideoLoadEvent` |
 
 #### Flashcards
 | Event name            | Fired when                           | Payload                |

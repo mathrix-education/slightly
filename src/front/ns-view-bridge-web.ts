@@ -4,6 +4,13 @@
  */
 export class NsViewBridgeWeb {
   private static readonly instance = new NsViewBridgeWeb();
+  private queue: {name: string, event: any}[] = [];
+
+  constructor() {
+    window.addEventListener('ns-bridge-ready', () => {
+      this.queue.forEach(({name, event}) => NsViewBridgeWeb.getInstance().emit(name, event));
+    });
+  }
 
   public static getInstance(): NsViewBridgeWeb {
     const windowRef = (window as unknown as Window & {nsWebViewBridge: NsViewBridgeWeb});
@@ -25,5 +32,10 @@ export class NsViewBridgeWeb {
 
   public emit<T>(eventName: string, data: T): void {
     console.log(`Emitted "${eventName}" with data`, data);
+
+    this.queue.push({
+      name: eventName,
+      event: data,
+    });
   }
 }

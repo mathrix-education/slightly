@@ -1,6 +1,9 @@
 import {BridgeElement} from '../../../front/bridge-element';
 import {Element} from '../../../front/element';
-import {VideoLoadEvent} from './video-brick.events';
+import {
+  VideoBrickEvents,
+  VideoLoadEvent,
+} from './video-brick.events';
 
 @Element('silicate-video-brick')
 export class VideoBrickElement extends BridgeElement {
@@ -9,7 +12,7 @@ export class VideoBrickElement extends BridgeElement {
   constructor() {
     super();
 
-    this.bridge.emit<VideoLoadEvent>('video.metadata', {
+    this.bridge.emit<VideoLoadEvent>(VideoBrickEvents.load, {
       type: 'youtube',
       id: this.$player.dataset.id,
       placement: {

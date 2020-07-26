@@ -1,7 +1,10 @@
-{{#eq type "ul"}}<ul>{{/eq}}
-{{#eq type "ol"}}<ol>{{/eq}}
+{{#eq type "ul"}}
+  <ul>{{/eq}}
+{{#eq type "ol"}}
+  <ol>{{/eq}}
 
-{{#each items}}<li>{{katex this}}</li>{{/each}}
+{{#each items}}
+    <li>{{katex this}}</li>{{/each}}
 
 {{#eq type "ol"}}</ol>{{/eq}}
 {{#eq type "ul"}}</ul>{{/eq}}

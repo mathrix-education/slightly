@@ -4,8 +4,8 @@
  */
 export class NsViewBridgeWeb {
   private static readonly instance = new NsViewBridgeWeb();
-  private readonly emitQueue: {name: string, event: any}[] = [];
-  private readonly onQueue: {name: string, handler: (data: any) => void}[] = [];
+  private readonly emitQueue: {name: string; event: any}[] = [];
+  private readonly onQueue: {name: string; handler: (data: any) => void}[] = [];
 
   constructor() {
     window.addEventListener('ns-bridge-ready', () => {
@@ -15,7 +15,7 @@ export class NsViewBridgeWeb {
   }
 
   public static getInstance(): NsViewBridgeWeb {
-    const windowRef = (window as unknown as Window & {nsWebViewBridge: NsViewBridgeWeb});
+    const windowRef = (window as unknown) as Window & {nsWebViewBridge: NsViewBridgeWeb};
 
     if (!windowRef.nsWebViewBridge) {
       return NsViewBridgeWeb.instance;

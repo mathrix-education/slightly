@@ -1,14 +1,14 @@
-import {BridgeElement} from '../../../front/bridge-element';
-import {Element} from '../../../front/element';
-import {QuestionBrickExplanationElement} from '../../../silicate/bricks/question-brick/question-brick-explanation.element';
-import {QuestionBrickElement} from '../../../silicate/bricks/question-brick/question-brick.element';
+import { BridgeElement } from '../../../front/bridge-element';
+import { Element } from '../../../front/element';
+import { QuestionBrickExplanationElement } from '../../../silicate/bricks/question-brick/question-brick-explanation.element';
+import { QuestionBrickElement } from '../../../silicate/bricks/question-brick/question-brick.element';
 import {
   ExamEvents,
   ExamPauseEvent,
   ExamResultEvent,
   ExamResumeEvent,
 } from './exam.events';
-import {ExamPhases} from './exam.phases';
+import { ExamPhases } from './exam.phases';
 
 @Element('exam-app')
 export class ExamAppElement extends BridgeElement {
@@ -33,18 +33,17 @@ export class ExamAppElement extends BridgeElement {
   $correctionBtn = this.$<HTMLButtonElement>('.exam__correction-btn');
   $retryBtn = this.$<HTMLButtonElement>('.exam__retry-btn');
 
-
   constructor() {
     super();
 
-    this.$startBtn.addEventListener('click', () => this.phase = ExamPhases.playing);
+    this.$startBtn.addEventListener('click', () => (this.phase = ExamPhases.playing));
     this.$pauseBtn.addEventListener('click', () => this.pause());
     this.bridge.on<ExamResumeEvent>(ExamEvents.resume, () => this.resume());
-    this.$endBtn.addEventListener('click', () => this.phase = ExamPhases.correction);
+    this.$endBtn.addEventListener('click', () => (this.phase = ExamPhases.correction));
 
     this.$explanations.forEach($e => $e.addEventListener('success', () => this.recompute()));
-    this.$debriefBtn.addEventListener('click', () => this.phase = ExamPhases.debriefing);
-    this.$correctionBtn.addEventListener('click', () => this.phase = ExamPhases.correction);
+    this.$debriefBtn.addEventListener('click', () => (this.phase = ExamPhases.debriefing));
+    this.$correctionBtn.addEventListener('click', () => (this.phase = ExamPhases.correction));
     this.$retryBtn.addEventListener('click', () => this.reset());
 
     this.reset();

@@ -1,27 +1,21 @@
-import {Module} from '@nestjs/common';
-import {TypeOrmModule} from '@nestjs/typeorm';
-import {SilicateModule} from '../silicate/silicate.module';
-import {Course} from './courses/course';
-import {CoursesController} from './courses/courses.controller';
-import {CoursesService} from './courses/courses.service';
-import {Exam} from './exams/exam';
-import {ExamsController} from './exams/exams.controller';
-import {ExamsService} from './exams/exams.service';
-import {Exercise} from './exercises/exercise';
-import {ExercisesController} from './exercises/exercises.controller';
-import {ExercisesService} from './exercises/exercises.service';
-import {Flashcard} from './flashcards/flashcard';
-import {FlashcardsController} from './flashcards/flashcards.controller';
-import {FlashcardsService} from './flashcards/flashcards.service';
-import {Subject} from './subjects/subject';
+import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { SilicateModule } from '../silicate/silicate.module';
+import { Course } from './courses/course';
+import { CoursesController } from './courses/courses.controller';
+import { CoursesService } from './courses/courses.service';
+import { Exam } from './exams/exam';
+import { ExamsController } from './exams/exams.controller';
+import { ExamsService } from './exams/exams.service';
+import { Exercise } from './exercises/exercise';
+import { ExercisesController } from './exercises/exercises.controller';
+import { ExercisesService } from './exercises/exercises.service';
+import { Flashcard } from './flashcards/flashcard';
+import { FlashcardsController } from './flashcards/flashcards.controller';
+import { FlashcardsService } from './flashcards/flashcards.service';
+import { Subject } from './subjects/subject';
 
-const entities = [
-  Course,
-  Subject,
-  Exercise,
-  Flashcard,
-  Exam,
-];
+const entities = [Course, Subject, Exercise, Flashcard, Exam];
 
 @Module({
   imports: [
@@ -39,18 +33,8 @@ const entities = [
     TypeOrmModule.forFeature(entities),
     SilicateModule,
   ],
-  controllers: [
-    CoursesController,
-    ExercisesController,
-    FlashcardsController,
-    ExamsController,
-  ],
-  providers: [
-    CoursesService,
-    ExercisesService,
-    FlashcardsService,
-    ExamsService,
-  ],
+  controllers: [CoursesController, ExercisesController, FlashcardsController, ExamsController],
+  providers: [CoursesService, ExercisesService, FlashcardsService, ExamsService],
 })
 export class AppModule {
 }

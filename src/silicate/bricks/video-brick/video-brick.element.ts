@@ -1,5 +1,5 @@
-import {BridgeElement} from '../../../front/bridge-element';
-import {Element} from '../../../front/element';
+import { BridgeElement } from '../../../front/bridge-element';
+import { Element } from '../../../front/element';
 import {
   VideoBrickEvents,
   VideoLoadEvent,

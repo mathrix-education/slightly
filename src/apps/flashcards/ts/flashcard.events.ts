@@ -13,7 +13,6 @@ export interface FlashcardResultEvent {
   score: number;
 }
 
-
 /**
  * Emitted when the user pressed the exit button on the result screen.
  */

@@ -1,3 +1,3 @@
-import {Brick} from './brick';
+import { Brick } from './brick';
 
 export type Wall = Brick[];

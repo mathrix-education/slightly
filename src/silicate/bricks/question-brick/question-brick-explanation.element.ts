@@ -1,4 +1,4 @@
-import {Element} from '../../../front/element';
+import { Element } from '../../../front/element';
 
 @Element('silicate-question-brick-explanation')
 export class QuestionBrickExplanationElement extends HTMLElement {
@@ -8,8 +8,8 @@ export class QuestionBrickExplanationElement extends HTMLElement {
   constructor() {
     super();
 
-    this.$successBtn.addEventListener('click', () => this.success = true);
-    this.$failureBtn.addEventListener('click', () => this.success = false);
+    this.$successBtn.addEventListener('click', () => (this.success = true));
+    this.$failureBtn.addEventListener('click', () => (this.success = false));
   }
 
   get success(): boolean {

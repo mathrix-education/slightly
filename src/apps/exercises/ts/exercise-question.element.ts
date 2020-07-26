@@ -1,15 +1,14 @@
-import {BridgeElement} from '../../../front/bridge-element';
-import {Element} from '../../../front/element';
-import {ExerciseQuestionStatus} from './exercise-question.status';
+import { BridgeElement } from '../../../front/bridge-element';
+import { Element } from '../../../front/element';
+import { ExerciseQuestionStatus } from './exercise-question.status';
 
 @Element('exercise-question')
 export class ExerciseQuestionElement extends BridgeElement {
-  private locked = false;
-
   $trigger = this.$<HTMLDivElement>('.exercise__hint-trigger');
   $choices = this.$$<HTMLButtonElement>('.exercise__choice');
   $explanation = this.$<HTMLDivElement>('.exercise__explanation');
   $hints = this.$$<HTMLDivElement>('.exercise__hint');
+  private locked = false;
 
   constructor() {
     super();

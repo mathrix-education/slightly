@@ -1,4 +1,4 @@
-import {Element} from '../../../front/element';
+import { Element } from '../../../front/element';
 
 @Element('brick-pdf-viewer')
 export class PdfViewerBrickElement extends HTMLElement {

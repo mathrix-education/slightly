@@ -1,5 +1,5 @@
-import {BridgeElement} from '../../../front/bridge-element';
-import {Element} from '../../../front/element';
+import { BridgeElement } from '../../../front/bridge-element';
+import { Element } from '../../../front/element';
 import {
   FlashcardEvents,
   FlashcardExitEvent,
@@ -35,7 +35,7 @@ export class FlashcardAppElement extends BridgeElement {
     this.phase = FlashcardPhase.revision;
 
     // Revision phase
-    this.$trainingBtn.addEventListener('click', () => this.phase = FlashcardPhase.training);
+    this.$trainingBtn.addEventListener('click', () => (this.phase = FlashcardPhase.training));
 
     this.$flashcards.forEach($flashcard => {
       $flashcard.addEventListener('click', () => this.flip());
@@ -53,7 +53,7 @@ export class FlashcardAppElement extends BridgeElement {
     });
 
     // Training phase
-    this.$revisionBtn.addEventListener('click', () => this.phase = FlashcardPhase.revision);
+    this.$revisionBtn.addEventListener('click', () => (this.phase = FlashcardPhase.revision));
 
     // Result screen
     this.$retryBtn.addEventListener('click', () => {
@@ -66,7 +66,7 @@ export class FlashcardAppElement extends BridgeElement {
   }
 
   private get phase(): FlashcardPhase {
-    return this.dataset.phase as FlashcardPhase ?? FlashcardPhase.revision;
+    return (this.dataset.phase as FlashcardPhase) ?? FlashcardPhase.revision;
   }
 
   private set phase(newPhase: FlashcardPhase) {
@@ -97,7 +97,7 @@ export class FlashcardAppElement extends BridgeElement {
     }
 
     this.dataset.current = newCurrent.toString(10);
-    this.$flashcards.forEach(($flashcard) => $flashcard.classList.remove('active'));
+    this.$flashcards.forEach($flashcard => $flashcard.classList.remove('active'));
 
     if (newCurrent !== this.size) {
       this.$flashcards[newCurrent].classList.add('active');
@@ -105,7 +105,7 @@ export class FlashcardAppElement extends BridgeElement {
     this.flipped = false;
 
     // Update progress
-    this.$progress.style.width = (newCurrent * 100 / this.size).toFixed(2) + '%';
+    this.$progress.style.width = ((newCurrent * 100) / this.size).toFixed(2) + '%';
 
     if (newCurrent === this.size) {
       // This is the end
@@ -127,7 +127,7 @@ export class FlashcardAppElement extends BridgeElement {
 
   private set score(newScore: number) {
     this.dataset.score = newScore.toString(10);
-    this.$score.textContent = (this.score * 100 / this.size).toFixed(0).toString();
+    this.$score.textContent = ((this.score * 100) / this.size).toFixed(0).toString();
   }
 
   /**

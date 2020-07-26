@@ -3,7 +3,7 @@ import {
   Entity,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import {Wall} from '../../silicate/spec/wall';
+import { Wall } from '../../silicate/spec/wall';
 
 @Entity({name: 'flashcards'})
 export class Flashcard {
@@ -19,7 +19,7 @@ export class Flashcard {
   @Column({type: 'json'})
   backs: Wall[];
 
-  get cards(): {front: Wall, back: Wall}[] {
+  get cards(): {front: Wall; back: Wall}[] {
     return this.fronts.map((front, i) => {
       return {
         front,

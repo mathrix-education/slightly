@@ -4,7 +4,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import {Exercise} from '../exercises/exercise';
+import { Exercise } from '../exercises/exercise';
 
 @Entity('subjects')
 export class Subject {
@@ -14,6 +14,9 @@ export class Subject {
   @Column()
   name: string;
 
-  @OneToMany(type => Exercise, exercise => exercise.subject)
+  @OneToMany(
+    type => Exercise,
+    exercise => exercise.subject,
+  )
   exercises: Promise<Exercise[]>;
 }

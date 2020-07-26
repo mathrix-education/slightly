@@ -1,4 +1,4 @@
-import {Brick} from '../../spec/brick';
+import { Brick } from '../../spec/brick';
 
 export class BlockBrick extends Brick {
   public variant: string;

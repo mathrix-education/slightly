@@ -1,20 +1,21 @@
-@import "~@mathrix-education/discovery.scss/variables/colors";
+@import '~@mathrix-education/discovery.scss/variables/colors';
 @import '~@mathrix-education/discovery.scss/mixins/spacing';
 
 silicate-question-brick-explanation {
   display: grid;
   grid-row-gap: spacing(2);
 
-  &[data-success="true"] {
+  &[data-success='true'] {
     .question-brick__evaluation-success {
-      color: $white!important;
-      background-color: $green!important;
+      color: $white !important;
+      background-color: $green !important;
     }
   }
-  &[data-success="false"] {
+
+  &[data-success='false'] {
     .question-brick__evaluation-failure {
-      color: $white!important;
-      background-color: $red!important;
+      color: $white !important;
+      background-color: $red !important;
     }
   }
 }

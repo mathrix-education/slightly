@@ -6,7 +6,7 @@ test/
 # Files
 .eslintrc.js
 .gitignore
-.prettierrc
+.prettierrc.js
 .standard-commitrc.json
 Dockerfile
 nest-cli.json

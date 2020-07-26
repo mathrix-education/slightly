@@ -1,14 +1,14 @@
-import {Injectable} from '@nestjs/common';
-import {BlockBrick} from '../bricks/block-brick/block-brick';
-import {ContainerBrick} from '../bricks/container-brick/container-brick';
-import {QuestionBrick} from '../bricks/question-brick/question-brick';
+import { Injectable } from '@nestjs/common';
+import { BlockBrick } from '../bricks/block-brick/block-brick';
+import { ContainerBrick } from '../bricks/container-brick/container-brick';
+import { QuestionBrick } from '../bricks/question-brick/question-brick';
 
 @Injectable()
 export class Parser {
   private static readonly BRICK_MAP = {
     block: BlockBrick,
     container: ContainerBrick,
-    question: QuestionBrick
+    question: QuestionBrick,
   };
 
   parse(wall: any[], depth = 0, maxDepth = 5) {
@@ -16,7 +16,7 @@ export class Parser {
       throw new Error(`Maximum depth (${maxDepth}) reached!`);
     }
 
-    return wall.map((rawBrick => {
+    return wall.map(rawBrick => {
       if (!Parser.BRICK_MAP[rawBrick.kind]) {
         return rawBrick;
       }
@@ -28,6 +28,6 @@ export class Parser {
       }
 
       return brick;
-    }));
+    });
   }
 }

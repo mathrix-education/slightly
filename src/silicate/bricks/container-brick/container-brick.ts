@@ -1,9 +1,6 @@
-import {Brick} from '../../spec/brick';
+import { Brick } from '../../spec/brick';
 
 export class ContainerBrick extends Brick {
-  public variant: string;
-  public wall: any[];
-
   private static readonly VARIANT_NAMES = {
     conclusion: 'Conclusion',
     corollary: 'Corollaire',
@@ -21,6 +18,8 @@ export class ContainerBrick extends Brick {
     step: 'Étape',
     theorem: 'Théorème',
   };
+  public variant: string;
+  public wall: any[];
 
   get variantName() {
     return ContainerBrick.VARIANT_NAMES[this.variant] ?? `UNKNOWN VARIANT (${this.variant})`;

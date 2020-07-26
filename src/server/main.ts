@@ -1,7 +1,7 @@
-import {NestFactory} from '@nestjs/core';
-import {NestExpressApplication} from '@nestjs/platform-express';
-import {readFileSync} from 'fs';
-import {sync as glob} from 'glob';
+import { NestFactory } from '@nestjs/core';
+import { NestExpressApplication } from '@nestjs/platform-express';
+import { readFileSync } from 'fs';
+import { sync as glob } from 'glob';
 import * as helpers from 'handlebars-helpers';
 import * as hbs from 'hbs';
 import {
@@ -9,7 +9,7 @@ import {
   parse,
 } from 'path';
 import 'source-map-support/register';
-import {AppModule} from './app.module';
+import { AppModule } from './app.module';
 import './hbs/concat.helper';
 import './hbs/globals.helper';
 import './hbs/katex.helper';
@@ -24,7 +24,7 @@ helpers({
  * Synchronously register the partials
  */
 function registerPartials() {
-  glob(join(__dirname, 'views', 'partials', '*.hbs')).forEach((partial) => {
+  glob(join(__dirname, 'views', 'partials', '*.hbs')).forEach(partial => {
     hbs.registerPartial(parse(partial).name, readFileSync(partial).toString());
   });
 }

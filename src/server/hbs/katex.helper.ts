@@ -6,7 +6,8 @@ hbs.registerHelper('katex', (text: string, options) => {
     return text;
   }
 
-  const result = text.split('$')
+  const result = text
+    .split('$')
     .map((part: string, index: number) => {
       if (index % 2 === 0) {
         return part;
@@ -31,4 +32,3 @@ hbs.registerHelper('katexEq', (text: string) => {
   const result = katex.renderToString(text, {displayMode: true, output: 'html'});
   return new hbs.handlebars.SafeString(result);
 });
-

@@ -5,8 +5,8 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import {Wall} from '../../silicate/spec/wall';
-import {Subject} from '../subjects/subject';
+import { Wall } from '../../silicate/spec/wall';
+import { Subject } from '../subjects/subject';
 
 @Entity({name: 'exercises'})
 export class Exercise {
@@ -28,7 +28,10 @@ export class Exercise {
   @Column({type: 'json'})
   explanations: Wall[][];
 
-  @ManyToOne(type => Subject, subject => subject.exercises)
-  @JoinColumn({ name: 'subject_id' })
+  @ManyToOne(
+    type => Subject,
+    subject => subject.exercises,
+  )
+  @JoinColumn({name: 'subject_id'})
   subject: Promise<Subject>;
 }

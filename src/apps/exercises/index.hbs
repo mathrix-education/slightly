@@ -15,21 +15,9 @@
   </head>
 
   <body>
-    <exercise-app class="{{#unless nextId}}exercise__last{{/unless}}">
-      <h1 class="main-title">{{ katex subject.name }}</h1>
-
-      <div class="exercise__selector">
-        {{#forEach exercises }}
-          <button
-            class="exercise__link {{#if (eq id ../exercise.id)}}exercise__link-current{{/if}}"
-            data-id="{{ id }}">
-            {{ index }}
-          </button>
-        {{/forEach}}
-      </div>
-
+    <exercise-app>
       {{#forEach exercise.questions }}
-        <div class="exercise">
+        <exercise-question>
           {{> wall wall=this }}
 
           <div class="exercise__choices">
@@ -53,14 +41,8 @@
           </div>
 
           <p class="exercise__hint-trigger">Un indice?</p>
-        </div>
+        </exercise-question>
       {{/forEach}}
-
-      {{#if nextId}}
-        <button class="btn btn-primary exercise__next-btn" data-id="{{ nextId }}">
-          Passer à l'exercise suivant
-        </button>
-      {{/if}}
     </exercise-app>
   </body>
 </html>

@@ -13,7 +13,7 @@ export class VideoBrickElement extends BridgeElement {
     super();
 
     this.bridge.emit<VideoLoadEvent>(VideoBrickEvents.load, {
-      type: 'youtube',
+      type: this.$player.dataset.type as 'youtube' | 'vimeo',
       id: this.$player.dataset.id,
       placement: {
         top: this.$player.offsetTop,

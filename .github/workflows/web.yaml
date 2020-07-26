@@ -43,12 +43,32 @@ jobs:
           MAPPINGS: ${{ toJson(steps.mappings.outputs) }}
 
   # ============================================================================
+  # Lint the source with ESLint
+  # ============================================================================
+  lint:
+    name: Lint with ESLint
+    needs: [mappings]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        if: needs.mappings.outputs.skip_lint != '1'
+        uses: actions/checkout@v2
+      - name: Install NPM dependencies
+        if: needs.mappings.outputs.skip_lint != '1'
+        run: |
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GH_REGISTRY_TOKEN }}" > ~/.npmrc
+          npm install
+      - name: Lint with ESLint
+        if: needs.mappings.outputs.skip_lint != '1'
+        run: npm run lint
+
+  # ============================================================================
   # Publish the typings package on GitHub Registry
   # ============================================================================
   publish:
     name: Publish package on GitHub Registry
     if: github.event_name == 'push'
-    needs: [mappings]
+    needs: [mappings, lint]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -119,7 +139,7 @@ jobs:
   deploy_gke:
     name: Deploy on Google Kubernetes Engine
     if: github.event_name != 'pull_request'
-    needs: [mappings, docker]
+    needs: [mappings, docker, lint]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

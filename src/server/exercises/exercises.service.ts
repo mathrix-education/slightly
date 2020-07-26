@@ -5,10 +5,10 @@ import { Exercise } from './exercise';
 
 @Injectable()
 export class ExercisesService {
-  constructor(@InjectRepository(Exercise) private courses: Repository<Exercise>) {
+  constructor(@InjectRepository(Exercise) private exercises: Repository<Exercise>) {
   }
 
-  findOne(id) {
-    return this.courses.findOne(id);
+  findOne(id: string | number): Promise<Exercise> {
+    return this.exercises.findOne(id);
   }
 }

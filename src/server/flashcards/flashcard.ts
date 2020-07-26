@@ -18,13 +18,4 @@ export class Flashcard {
 
   @Column({type: 'json'})
   backs: Wall[];
-
-  get cards(): {front: Wall; back: Wall}[] {
-    return this.fronts.map((front, i) => {
-      return {
-        front,
-        back: this.backs[i] ?? [],
-      };
-    });
-  }
 }

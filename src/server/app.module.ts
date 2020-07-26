@@ -13,9 +13,8 @@ import { ExercisesService } from './exercises/exercises.service';
 import { Flashcard } from './flashcards/flashcard';
 import { FlashcardsController } from './flashcards/flashcards.controller';
 import { FlashcardsService } from './flashcards/flashcards.service';
-import { Subject } from './subjects/subject';
 
-const entities = [Course, Subject, Exercise, Flashcard, Exam];
+const entities = [Course, Exercise, Flashcard, Exam];
 
 @Module({
   imports: [

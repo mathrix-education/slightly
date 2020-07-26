@@ -8,7 +8,7 @@ export class ExamsService {
   constructor(@InjectRepository(Exam) private exams: Repository<Exam>) {
   }
 
-  findOne(id) {
+  findOne(id: string | number): Promise<Exam> {
     return this.exams.findOne(id);
   }
 }

@@ -33,6 +33,7 @@ export class NsViewBridgeWeb {
     });
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public off<T>(eventName: string, cb: (data: T) => void): void {
     console.log(`Un-registered event handler on "${eventName}"`);
   }

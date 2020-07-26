@@ -8,7 +8,7 @@ export class CoursesService {
   constructor(@InjectRepository(Course) private courses: Repository<Course>) {
   }
 
-  findOne(id) {
+  findOne(id: string | number): Promise<Course> {
     return this.courses.findOne(id);
   }
 }

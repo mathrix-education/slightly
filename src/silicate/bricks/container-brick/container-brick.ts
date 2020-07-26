@@ -21,7 +21,7 @@ export class ContainerBrick extends Brick {
   public variant: string;
   public wall: any[];
 
-  get variantName() {
+  get variantName(): string {
     return ContainerBrick.VARIANT_NAMES[this.variant] ?? `UNKNOWN VARIANT (${this.variant})`;
   }
 }

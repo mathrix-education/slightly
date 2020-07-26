@@ -19,7 +19,7 @@ export class Exam {
   @Column({type: 'json'})
   content: Wall;
 
-  get minutes() {
+  get minutes(): number | null {
     return this.duration ? Math.round(this.duration / 60) : null;
   }
 }

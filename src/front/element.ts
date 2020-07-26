@@ -1,4 +1,4 @@
-export const Element = (selector: string) => (constructor: CustomElementConstructor) => {
+export const Element = (selector: string) => (constructor: CustomElementConstructor): void => {
   if (!window.customElements.get(selector)) {
     window.customElements.define(selector, constructor);
   }

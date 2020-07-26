@@ -5,6 +5,7 @@ import {
   Render,
 } from '@nestjs/common';
 import { Parser } from '../../silicate/spec/parser';
+import { Flashcard } from './flashcard';
 import { FlashcardsService } from './flashcards.service';
 
 @Controller('flashcards')
@@ -14,12 +15,12 @@ export class FlashcardsController {
 
   @Get(':id')
   @Render('flashcards')
-  find(@Param('id') id) {
+  find(@Param('id') id: string | number): Promise<Flashcard> {
     return this.flashcards.findOne(id).then(flashcard => {
       flashcard.fronts = flashcard.fronts.map(wall => this.parser.parse(wall));
       flashcard.backs = flashcard.backs.map(wall => this.parser.parse(wall));
 
-      return {...flashcard, cards: flashcard.cards};
+      return flashcard;
     });
   }
 }

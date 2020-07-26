@@ -5,6 +5,7 @@ import {
   Render,
 } from '@nestjs/common';
 import { Parser } from '../../silicate/spec/parser';
+import { Exercise } from './exercise';
 import { ExercisesService } from './exercises.service';
 
 @Controller('exercises')
@@ -14,7 +15,7 @@ export class ExercisesController {
 
   @Get(':id')
   @Render('exercises')
-  find(@Param('id') id) {
+  find(@Param('id') id: string | number): Promise<Exercise> {
     return this.exercises.findOne(id).then(async exercise => {
       exercise.questions = exercise.questions.map(q => this.parser.parse(q));
       exercise.choices = exercise.choices.map(c1 => c1.map(c2 => this.parser.parse(c2)));

@@ -15,7 +15,7 @@ export class QuestionBrickElement extends HTMLElement {
     this.reveal = false;
   }
 
-  get reveal() {
+  get reveal(): boolean {
     return this.dataset.reveal === 'true';
   }
 

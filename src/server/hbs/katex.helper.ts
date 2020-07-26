@@ -1,7 +1,7 @@
 import * as hbs from 'hbs';
 import * as katex from 'katex';
 
-hbs.registerHelper('katex', (text: string, options) => {
+hbs.registerHelper('katex', (text: string) => {
   if (!text) {
     return text;
   }

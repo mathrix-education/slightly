@@ -25,16 +25,16 @@
         <a class="flashcard__mode-trigger flashcard__training-trigger">Mode entraînement</a>
 
         <div class="flashcard__container">
-          {{#each cards as |card|}}
+          {{#forEach fronts}}
             <div class="flashcard">
               <div class="flashcard__front">
-                {{> wall wall=front }}
+                {{> wall wall=this }}
               </div>
               <div class="flashcard__back">
-                {{> wall wall=back }}
+                {{> wall wall=(itemAt ../backs (minus index 1)) }}
               </div>
             </div>
-          {{/each}}
+          {{/forEach}}
         </div>
 
         <div class="flashcard__footer">

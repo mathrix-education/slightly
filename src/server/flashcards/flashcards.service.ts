@@ -8,7 +8,7 @@ export class FlashcardsService {
   constructor(@InjectRepository(Flashcard) private flashcards: Repository<Flashcard>) {
   }
 
-  findOne(id) {
+  findOne(id: string | number): Promise<Flashcard> {
     return this.flashcards.findOne(id);
   }
 }

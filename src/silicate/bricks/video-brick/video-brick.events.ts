@@ -1,10 +1,9 @@
 export enum VideoBrickEvents {
   load = 'video.load',
-  cue = 'video.cue',
 }
 
 export interface VideoLoadEvent {
-  type: 'youtube';
+  type: 'youtube' | 'vimeo';
   id: string;
   placement: {
     top: number;
@@ -14,10 +13,4 @@ export interface VideoLoadEvent {
     width: number;
     height: number;
   };
-}
-
-export interface VideoFullScreenEvent {
-  type: 'youtube' | 'vimeo';
-  id: string;
-  currentTime: number;
 }

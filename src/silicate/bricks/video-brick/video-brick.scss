@@ -5,10 +5,8 @@ silicate-video-brick {
   > .player {
     margin: 0 -16px;
     overflow: hidden;
-    padding-bottom: 56.25%;
     position: relative;
     height: 0;
-    /* border: dashed 8px $gray-title-disabled; */
 
     &.ratio-16-by-9 {
       padding-bottom: 56.25%;

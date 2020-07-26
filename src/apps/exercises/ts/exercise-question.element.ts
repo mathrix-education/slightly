@@ -1,6 +1,6 @@
 import {BridgeElement} from '../../../front/bridge-element';
 import {Element} from '../../../front/element';
-import {QuestionStatus} from './question.status';
+import {ExerciseQuestionStatus} from './exercise-question.status';
 
 @Element('exercise-question')
 export class ExerciseQuestionElement extends BridgeElement {
@@ -15,7 +15,7 @@ export class ExerciseQuestionElement extends BridgeElement {
     super();
 
     this.hints = -1;
-    this.status = QuestionStatus.playing;
+    this.status = ExerciseQuestionStatus.unknown;
 
     this.$trigger.addEventListener('click', () => {
       if (this.hints < this.$hints.length - 2) {
@@ -33,9 +33,9 @@ export class ExerciseQuestionElement extends BridgeElement {
         $choice.dataset.clicked = true.toString();
 
         if ($choice.dataset.valid === 'true') {
-          this.status = QuestionStatus.success;
+          this.status = ExerciseQuestionStatus.success;
         } else {
-          this.status = QuestionStatus.failure;
+          this.status = ExerciseQuestionStatus.failure;
         }
       });
     });
@@ -65,14 +65,14 @@ export class ExerciseQuestionElement extends BridgeElement {
     });
   }
 
-  get status(): QuestionStatus {
-    return this.dataset.status as QuestionStatus;
+  get status(): ExerciseQuestionStatus {
+    return this.dataset.status as ExerciseQuestionStatus;
   }
 
-  set status(newStatus: QuestionStatus) {
+  set status(newStatus: ExerciseQuestionStatus) {
     this.dataset.status = newStatus;
 
-    if (this.status === QuestionStatus.success || this.status === QuestionStatus.failure) {
+    if (this.status === ExerciseQuestionStatus.success || this.status === ExerciseQuestionStatus.failure) {
       this.hints = Infinity;
       this.dispatchEvent(new Event('finished'));
       window.scrollTo({

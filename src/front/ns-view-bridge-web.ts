@@ -4,11 +4,13 @@
  */
 export class NsViewBridgeWeb {
   private static readonly instance = new NsViewBridgeWeb();
-  private queue: {name: string, event: any}[] = [];
+  private readonly emitQueue: {name: string, event: any}[] = [];
+  private readonly onQueue: {name: string, handler: (data: any) => void}[] = [];
 
   constructor() {
     window.addEventListener('ns-bridge-ready', () => {
-      this.queue.forEach(({name, event}) => NsViewBridgeWeb.getInstance().emit(name, event));
+      this.emitQueue.forEach(({name, event}) => NsViewBridgeWeb.getInstance().emit(name, event));
+      this.onQueue.forEach(({name, handler}) => NsViewBridgeWeb.getInstance().on(name, handler));
     });
   }
 
@@ -24,16 +26,21 @@ export class NsViewBridgeWeb {
 
   public on<T>(eventName: string, cb: (data: T) => void): void {
     console.log(`Registered event handler on "${eventName}"`);
+
+    this.onQueue.push({
+      name: eventName,
+      handler: cb,
+    });
   }
 
-  public off(eventName: string, cb: (data: any) => void): void {
+  public off<T>(eventName: string, cb: (data: T) => void): void {
     console.log(`Un-registered event handler on "${eventName}"`);
   }
 
   public emit<T>(eventName: string, data: T): void {
     console.log(`Emitted "${eventName}" with data`, data);
 
-    this.queue.push({
+    this.emitQueue.push({
       name: eventName,
       event: data,
     });

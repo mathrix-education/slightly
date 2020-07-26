@@ -11,21 +11,21 @@
     <link href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
   </head>
 
   <body>
     <exercise-app>
-      {{#forEach exercise.questions }}
+      {{#forEach questions }}
         <exercise-question>
           {{> wall wall=this }}
 
           <div class="exercise__choices">
-            {{#forEach (itemAt ../exercise.choices (minus index 1)) }}
+            {{#forEach (itemAt ../choices (minus index 1)) }}
               <button
                 class="btn btn-secondary exercise__choice"
                 data-question="{{ minus ../index 1 }}"
-                data-valid="{{inArray (itemAt ../../exercise.solutions (minus ../index 1)) (minus index 1) }}">
+                data-valid="{{inArray (itemAt ../../solutions (minus ../index 1)) (minus index 1) }}">
                 {{> wall wall=this}}
               </button>
             {{/forEach}}
@@ -33,7 +33,7 @@
 
           <div class="exercise__explanation">
             <h3 class="exercise__explanation-title">Explications</h3>
-            {{#forEach (itemAt ../exercise.explanations (minus index 1))}}
+            {{#forEach (itemAt ../explanations (minus index 1))}}
               <div class="exercise__hint" data-question="{{ minus ../index 1 }}">
                 {{> wall wall=this }}
               </div>

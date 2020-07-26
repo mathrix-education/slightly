@@ -1,3 +1,22 @@
-silicate-question-container-brick {
+@import '~@mathrix-education/discovery.scss/mixins/spacing';
 
+silicate-question-container-brick {
+  display: grid !important;
+  grid-row-gap: 16px;
+
+  .question-container__statement {
+    display: grid;
+    grid-auto-flow: column;
+    grid-column-gap: spacing(1);
+    grid-template-columns: max-content auto;
+
+    &:before {
+      counter-increment: question-container;
+      content: counter(question-container) '.';
+    }
+  }
+
+  .question-container__children {
+    @include padding-left(2);
+  }
 }

@@ -5,7 +5,7 @@ import {
   ExerciseResultEvent,
   ExerciseEvents,
 } from './exercise.events';
-import {QuestionStatus} from './question.status';
+import {ExerciseQuestionStatus} from './exercise-question.status';
 
 @Element('exercise-app')
 export class ExercisesAppElement extends BridgeElement {
@@ -16,12 +16,12 @@ export class ExercisesAppElement extends BridgeElement {
 
     this.$questions.forEach($q => $q.addEventListener('finished', () => {
       const ready = this.$questions.every(($q) => {
-        return [QuestionStatus.success, QuestionStatus.failure].includes($q.status);
+        return [ExerciseQuestionStatus.success, ExerciseQuestionStatus.failure].includes($q.status);
       });
 
       if (ready) {
         this.bridge.emit<ExerciseResultEvent>(ExerciseEvents.result, {
-          score: this.$questions.filter($q => $q.status === QuestionStatus.success).length,
+          score: this.$questions.filter($q => $q.status === ExerciseQuestionStatus.success).length,
           total: this.$questions.length,
         });
       }

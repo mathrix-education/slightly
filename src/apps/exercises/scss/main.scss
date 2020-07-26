@@ -46,8 +46,9 @@ exercise-app {
 
   .exercise__hint-trigger {
     margin: 0;
-    @include poppins(14px);
+    @include poppins;
     color: $green;
+    font-size: 14px;
     text-align: right;
   }
 }

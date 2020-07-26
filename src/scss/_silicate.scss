@@ -1,0 +1,18 @@
+@import '~@mathrix-education/discovery.scss/mixins/spacing';
+
+.brick {
+  display: grid;
+  @include margin-y(3);
+
+  &:first-child {
+    @include margin-top(0);
+  }
+
+  &:last-child {
+    @include margin-bottom(0);
+  }
+}
+
+.wall {
+  max-width: calc(100vw - #{spacing(3)});
+}

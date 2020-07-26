@@ -11,7 +11,15 @@ hbs.registerHelper('katex', (text: string, options) => {
       if (index % 2 === 0) {
         return part;
       } else {
-        return katex.renderToString(part, {output: 'html'});
+        const math = part
+          .replace(/&lt;/g, '<')
+          .replace(/&gt;/g, '>')
+          .replace(/&amp;/g, '&');
+
+        return katex.renderToString(math, {
+          output: 'html',
+          throwOnError: false,
+        });
       }
     })
     .join('\n');

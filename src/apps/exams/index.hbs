@@ -11,41 +11,41 @@
     <link href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
   </head>
 
   <body>
     <exam-app data-duration="{{ multiply duration 60}}" data-total="{{ total }}">
-      <h1 class="main-title">{{ katex name }}</h1>
-
-      <div class="exam__startup">
+      <section class="exam__startup">
         <p>Tu es sur le point de démarrer une interrogation de {{duration}} minutes.</p>
         <p>Mets-toi en condition et clique sur le bouton Commencer dès que tu es prêt.e !</p>
 
         <button class="exam__start-btn btn btn-primary">Commencer</button>
-      </div>
+      </section>
 
-      <div class="exam__content">
+      <section class="exam__content">
         <div class="exam__timer">
           <img class="exam__timer-icon" src="img/icons/icon-time.svg" alt="Icône temps restant">
 
           <span class="exam__timer-remaining-text">
             Temps restant : <span class="exam__timer-remaining-time">{{duration}}:00</span>
           </span>
+
+          <span class="exam__timer-pause">Mettre en pause</span>
         </div>
 
         {{> wall wall=content classes="exam__content card" }}
 
-        <button class="btn btn-primary btn-float-bottom exam__next exam__end-btn">
+        <button class="btn btn-primary btn-fixed-bottom exam__next exam__end-btn">
           J'ai terminé
         </button>
 
-        <button class="btn btn-primary btn-float-bottom exam__next exam__debriefing-btn" disabled>
+        <button class="btn btn-primary btn-fixed-bottom exam__next exam__debriefing-btn" disabled>
           Passer au debriefing
         </button>
-      </div>
+      </section>
 
-      <div class="exam__debriefing">
+      <section class="exam__debriefing">
         <div class="card">
           <div class="exam__success">
             <h3>Bravo !<br>Tu as réussi cette interro !</h3>
@@ -55,7 +55,7 @@
           </div>
 
           <div class="exam__score-bar">
-            <span class="exam__score"></span>/{{total}}
+            <span class="exam__score"></span>/<span class="exam__total"></span>
           </div>
         </div>
 
@@ -72,11 +72,11 @@
           </li>
         </ul>
 
-        <div class="exam__debriefing-btn-grid">
+        <div class="exam__debriefing-actions">
           <button class="exam__correction-btn btn btn-secondary">Revoir la correction</button>
           <button class="exam__retry-btn btn btn-primary">Recommencer</button>
         </div>
-      </div>
+      </section>
     </exam-app>
   </body>
 </html>

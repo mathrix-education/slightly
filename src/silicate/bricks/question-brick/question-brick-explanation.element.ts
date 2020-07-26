@@ -1,10 +1,7 @@
 import {Element} from '../../../front/element';
-import {QuestionBrickElement} from './question-brick.element';
 
 @Element('silicate-question-brick-explanation')
 export class QuestionBrickExplanationElement extends HTMLElement {
-  public parent: QuestionBrickElement;
-
   private readonly $successBtn = this.querySelector<HTMLButtonElement>('.question-brick__evaluation-success');
   private readonly $failureBtn = this.querySelector<HTMLButtonElement>('.question-brick__evaluation-failure');
 
@@ -25,7 +22,7 @@ export class QuestionBrickExplanationElement extends HTMLElement {
 
   set success(newSuccess: boolean) {
     this.dataset.success = newSuccess.toString();
-    this.parent.parent.recompute();
+    this.dispatchEvent(new Event('success'));
   }
 
   get points(): number {

@@ -11,8 +11,6 @@ export class QuestionBrickElement extends HTMLElement {
     super();
 
     this.reveal = false;
-
-    this.$explanations.forEach(($explanation) => $explanation.parent = this);
   }
 
   get reveal() {

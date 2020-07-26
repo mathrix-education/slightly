@@ -1,9 +1,11 @@
-@import "~@mathrix-education/discovery.scss/variables/colors";
-@import "~@mathrix-education/discovery.scss/mixins/typography";
+@import '~@mathrix-education/discovery.scss/variables/colors';
+@import '~@mathrix-education/discovery.scss/mixins/spacing';
+@import '~@mathrix-education/discovery.scss/mixins/typography';
 
 exam-app {
-  display: block;
-  padding-bottom: 64px;
+  display: grid;
+  @include padding-x(2);
+  padding-bottom: spacing(4) + spacing(2);
 
   &[data-phase='startup'] {
     .exam__content {
@@ -11,7 +13,7 @@ exam-app {
     }
   }
 
-  &:not([data-phase="startup"]) {
+  &:not([data-phase='startup']) {
     .exam__startup {
       display: none;
     }
@@ -45,28 +47,50 @@ exam-app {
     }
   }
 
+  .exam__debriefing {
+    display: grid;
+    grid-row-gap: spacing(2);
+
+    > p, > ul {
+      margin: 0;
+    }
+  }
+
+  .exam__content {
+    display: grid;
+    grid-row-gap: spacing(2);
+  }
+
   .exam__timer {
-    display: flex;
+    display: grid;
+    grid-template-columns: max-content auto max-content;
+    grid-column-gap: spacing(2);
+    @include poppins;
+    font-size: 14px;
+    line-height: 30px;
 
     .exam__timer-icon {
       width: 30px;
       height: 30px;
-      margin-right: 16px;
     }
 
-    .exam__timer-remaining-text {
-      font-size: 14px;
-      line-height: 30px;
+    .exam__timer-pause {
+      color: $green;
     }
   }
 
-  &:not([data-success="true"]) {
+  .exam__success h3,
+  .exam__failure h3 {
+    margin-top: 0;
+  }
+
+  &:not([data-success='true']) {
     .exam__success {
       display: none;
     }
   }
 
-  &:not([data-success="false"]) {
+  &:not([data-success='false']) {
     .exam__failure {
       display: none;
     }
@@ -75,9 +99,27 @@ exam-app {
   .exam__score-bar {
     height: 36px;
     color: $white;
-    background-color: $red;
-    @include poppins-bold(24px);
+    @include poppins-semi-bold;
+    font-size: 24px;
     line-height: 36px;
     text-align: center;
+  }
+
+  &[data-success='true'] {
+    .exam__score-bar {
+      background-color: $green;
+    }
+  }
+
+  &[data-success='false'] {
+    .exam__score-bar {
+      background-color: $red;
+    }
+  }
+
+  .exam__debriefing-actions {
+    display: grid;
+    grid-column-gap: spacing(2);
+    grid-template-columns: 1fr 1fr;
   }
 }

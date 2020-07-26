@@ -1,6 +1,10 @@
 @import "~@mathrix-education/discovery.scss/variables/colors";
+@import '~@mathrix-education/discovery.scss/mixins/spacing';
 
 silicate-question-brick-explanation {
+  display: grid;
+  grid-row-gap: spacing(2);
+
   &[data-success="true"] {
     .question-brick__evaluation-success {
       color: $white!important;

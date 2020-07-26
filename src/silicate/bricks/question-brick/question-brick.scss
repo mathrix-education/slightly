@@ -1,7 +1,25 @@
-@import "~@mathrix-education/discovery.scss/variables/colors";
-@import "~@mathrix-education/discovery.scss/mixins/typography";
+@import '~@mathrix-education/discovery.scss/variables/colors';
+@import '~@mathrix-education/discovery.scss/mixins/spacing';
+@import '~@mathrix-education/discovery.scss/mixins/typography';
+
+silicate-question-container-brick {
+  counter-reset: question;
+}
 
 silicate-question-brick {
+  .question-brick__statement {
+    display: grid !important;
+    grid-auto-flow: row;
+    grid-column-gap: spacing(1);
+    grid-template-columns: min-content auto;
+
+    &:before {
+      display: block;
+      counter-increment: question;
+      content: counter(question, lower-alpha) '.';
+    }
+  }
+
   .question-brick__explanations-title {
     color: $green;
   }
@@ -18,8 +36,9 @@ silicate-question-brick {
 
     > p {
       margin: 0;
+      @include poppins-semi-bold;
       color: $green;
-      @include poppins-bold(16px);
+      font-size: 1rem;
       font-weight: 500;
       text-align: center;
     }

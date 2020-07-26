@@ -20,7 +20,7 @@ export class ExamsController {
     return this.exams.findOne(id).then((exam) => {
       exam.content = this.parser.parse(exam.content);
 
-      return {...exam, ...{total: exam.total}};
+      return exam;
     });
   }
 }

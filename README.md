@@ -19,13 +19,25 @@ npm install @mathrix-education/slightly
 ### Events specification
 All events can be debugged in the browser console using the web version of Slightly.
 
-#### Video Brick
-| Event name     | Fired when       | Payload          |
-|----------------|------------------|------------------|
-| `'video.load'` | Video was loaded | `VideoLoadEvent` |
+#### Video Brick (all apps)
+| Event name     | Direction       | Fired when       | Payload         |
+|----------------|-----------------|------------------|-----------------|
+| `'video.load'` | slightly -> app | Video was loaded |`VideoLoadEvent` |
 
 #### Flashcards
-| Event name            | Fired when                           | Payload                |
-|-----------------------|--------------------------------------|------------------------|
-| `'flashcard.result'`  | User finishes for the last flashcard | `FlashcardResultEvent` |
-| `'flashcard.exit'`    | User clicks on the "Terminer" button | `FlashcardExitEvent`   |
+| Event name            | Direction       | Fired when                           | Payload                |
+|-----------------------|-----------------|--------------------------------------|------------------------|
+| `'flashcard.result'`  | slightly -> app | User finishes for the last flashcard | `FlashcardResultEvent` |
+| `'flashcard.exit'`    | slightly -> app | User clicks on the "Terminer" button | `FlashcardExitEvent`   |
+
+#### Exercises
+| Event name          | Direction       | Fired when                 | Payload                |
+|---------------------|-----------------|----------------------------|------------------------|
+| `'exercise.result'` | slightly -> app | User finishes the exercise | `ExerciseResultEvent` |
+
+#### Exams
+| Event name      | Direction       | Fired when                        | Payload           |
+|-----------------|-----------------|-----------------------------------|-------------------|
+| `'exam.pause'`  | slightly -> app | User clicks on the "Pause" button | `ExamPauseEvent`  |
+| `'exam.resume'` | app -> slightly | User resumes the exam             | `ExamResumeEvent` |
+| `'exam.result'` | slightly -> app | User finishes the exam            | `ExamResultEvent` |

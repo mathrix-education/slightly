@@ -80,7 +80,8 @@ flashcard-app {
 
 .flashcard__mode-trigger {
   justify-self: end;
-  @include poppins(14px);
+  @include poppins;
+  font-size: 14px;
 }
 
 .flashcard {
@@ -191,8 +192,8 @@ flashcard-app {
 
 .flashcard__score-percent {
   color: $green;
-  @include poppins-bold(36px);
-  font-weight: 500 !important;
+  @include poppins-medium;
+  font-size: 36px;
 
   &:after {
     content: ' %';

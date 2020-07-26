@@ -16,3 +16,31 @@
   $border-color: $green,
   $background-color-active: $green-l2,
 );
+
+.btn-fixed-bottom {
+  position: fixed;
+  bottom: spacing(2);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-weight: 300;
+  @include body();
+}
+
+p {
+  margin-top: 0;
+}
+
+a {
+  color: $green;
+}
+
+figure {
+  margin: 0;
+}

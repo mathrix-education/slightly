@@ -2,41 +2,5 @@
 @import '~@mathrix-education/discovery.scss/mixins/spacing';
 @import '~@mathrix-education/discovery.scss/mixins/typography';
 @import 'ui';
-
-* {
-  box-sizing: border-box;
-}
-
-body {
-  font-weight: 300;
-  @include body();
-}
-
-a {
-  color: $green;
-}
-
-figure {
-  margin: 0;
-}
-
-.brick {
-  display: block;
-  @include margin-y(3);
-
-  &:first-child {
-    @include margin-top(0);
-  }
-
-  &:last-child {
-    @include margin-bottom(0);
-  }
-}
-
-.app-title {
-  color: $green;
-  @include poppins(24px);
-  margin: 0 0 32px 0;
-  font-weight: 500;
-  line-height: 2.1rem;
-}
+@import 'katex';
+@import 'silicate';

@@ -2,7 +2,7 @@ import { BridgeElement } from '../../../front/bridge-element';
 import { Element } from '../../../front/element';
 import {
   FlashcardEvents,
-  FlashcardExitEvent,
+  FlashcardExitEvent, FlashcardRedoEvent,
   FlashcardResultEvent,
 } from './flashcard.events';
 
@@ -58,6 +58,7 @@ export class FlashcardAppElement extends BridgeElement {
     // Result screen
     this.$retryBtn.addEventListener('click', () => {
       this.phase = FlashcardPhase.revision;
+      this.bridge.emit<FlashcardRedoEvent>(FlashcardEvents.redo, {});
       this.reset();
     });
     this.$exitBtn.addEventListener('click', () => {

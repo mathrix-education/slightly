@@ -1,6 +1,7 @@
 export enum FlashcardEvents {
   result = 'flashcard.result',
   exit = 'flashcard.exit',
+  redo = 'flashcard.redo',
 }
 
 /**
@@ -19,4 +20,8 @@ export interface FlashcardResultEvent {
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface FlashcardExitEvent {
   // To be defined later if necessary
+}
+
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface FlashcardRedoEvent {
 }

@@ -10,7 +10,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "webpack": "TS_NODE_PROJECT=\"tsconfig.webpack.json\" webpack",
+    "webpack": "cross-env TS_NODE_PROJECT=\"tsconfig.webpack.json\" webpack",
     "types": "src/types/build.sh",
     "build": "npm run webpack -- --env prod",
     "start": "npm run webpack",
@@ -66,6 +66,7 @@
     "autoprefixer": "^9.8.5",
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^6.0.3",
+    "cross-env": "^7.0.2",
     "css-loader": "^3.6.0",
     "eslint": "^7.4.0",
     "eslint-config-prettier": "^6.10.0",

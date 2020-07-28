@@ -61,7 +61,7 @@ export class ExamAppElement extends BridgeElement {
       this.resume();
     } else if (this.phase === ExamPhases.correction) {
       if (this.tick) {
-        this.pause();
+        clearInterval(this.tick);
         delete this.tick;
       }
 

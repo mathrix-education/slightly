@@ -39,6 +39,6 @@ All events can be debugged in the browser console using the web version of Sligh
 #### Exams
 | Event name      | Direction       | Fired when                        | Payload           |
 |-----------------|-----------------|-----------------------------------|-------------------|
-| `'exam.pause'`  | slightly -> app | User clicks on the "Pause" button | `ExamPauseEvent`  |
-| `'exam.resume'` | app -> slightly | User resumes the exam             | `ExamResumeEvent` |
-| `'exam.result'` | slightly -> app | User finishes the exam            | `ExamResultEvent` |
+| `'exam.result'` | slightly -> app | User corrected all questions      | `ExamResultEvent` |
+| `'exam.finish'` | app -> slightly | User wants to see correction      | `ExamFinishEvent` |
+| `'exam.restart' | app -> slightly | User restart the exam             | `ExamResultEvent` |

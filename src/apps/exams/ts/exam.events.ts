@@ -1,15 +1,12 @@
 export enum ExamEvents {
-  finished = 'exam.finished',
-  review = 'exam.review',
+  finish = 'exam.finish',
   restart = 'exam.restart',
   result = 'exam.result',
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface ExamFinishedEvent {
+export interface ExamFinishEvent {
 }
-
-
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface ExamRestartEvent {

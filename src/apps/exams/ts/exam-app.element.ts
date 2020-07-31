@@ -2,7 +2,7 @@ import { BridgeElement } from '../../../front/bridge-element';
 import { Element } from '../../../front/element';
 import { QuestionBrickExplanationElement } from '../../../silicate/bricks/question-brick/question-brick-explanation.element';
 import { QuestionBrickElement } from '../../../silicate/bricks/question-brick/question-brick.element';
-import { ExamEvents, ExamFinishedEvent, ExamResultEvent } from './exam.events';
+import { ExamEvents, ExamFinishEvent, ExamRestartEvent, ExamResultEvent } from './exam.events';
 import { ExamPhases } from './exam.phases';
 
 @Element('exam-app')
@@ -14,8 +14,8 @@ export class ExamAppElement extends BridgeElement {
 
   constructor() {
     super();
-    this.bridge.on<ExamFinishedEvent>(ExamEvents.finished, () => (this.phase = ExamPhases.correction));
-    this.bridge.on<ExamResultEvent>(ExamEvents.restart, () => (this.reset()));
+    this.bridge.on<ExamFinishEvent>(ExamEvents.finish, () => (this.phase = ExamPhases.correction));
+    this.bridge.on<ExamRestartEvent>(ExamEvents.restart, () => (this.reset()));
 
     this.$explanations.forEach($e => $e.addEventListener('success', () => this.recompute()));
     this.reset();

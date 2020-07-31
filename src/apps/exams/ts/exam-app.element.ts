@@ -9,8 +9,6 @@ import { ExamPhases } from './exam.phases';
 export class ExamAppElement extends BridgeElement {
   $questions = this.$$<QuestionBrickElement>('silicate-question-brick');
   $explanations = this.$$<QuestionBrickExplanationElement>('silicate-question-brick-explanation');
-  // Correction phase
-  $debriefBtn = this.$<HTMLButtonElement>('.exam__debriefing-btn');
 
   constructor() {
     super();
@@ -74,7 +72,6 @@ export class ExamAppElement extends BridgeElement {
 
     if (finish) {
       this.success = this.score >= this.total / 2;
-      this.$debriefBtn.disabled = false;
       this.bridge.emit<ExamResultEvent>(ExamEvents.result, {
         score: this.score,
         total: this.total,

@@ -7,55 +7,6 @@ exam-app {
   @include padding-x(2);
   padding-bottom: spacing(4) + spacing(2);
 
-  &[data-phase='startup'] {
-    .exam__content {
-      display: none;
-    }
-  }
-
-  &:not([data-phase='startup']) {
-    .exam__startup {
-      display: none;
-    }
-  }
-
-  &:not([data-phase='playing']) {
-    .exam__timer {
-      display: none;
-    }
-
-    .exam__end-btn {
-      display: none;
-    }
-  }
-
-  &:not([data-phase='correction']) {
-    .exam__debriefing-btn {
-      display: none;
-    }
-  }
-
-  &:not([data-phase='playing']):not([data-phase='correction']) {
-    .exam__content {
-      display: none;
-    }
-  }
-
-  &:not([data-phase='debriefing']) {
-    .exam__debriefing {
-      display: none;
-    }
-  }
-
-  .exam__debriefing {
-    display: grid;
-    grid-row-gap: spacing(2);
-
-    > p, > ul {
-      margin: 0;
-    }
-  }
-
   .exam__content {
     display: grid;
     grid-row-gap: spacing(2);
@@ -115,11 +66,5 @@ exam-app {
     .exam__score-bar {
       background-color: $red;
     }
-  }
-
-  .exam__debriefing-actions {
-    display: grid;
-    grid-column-gap: spacing(2);
-    grid-template-columns: 1fr 1fr;
   }
 }

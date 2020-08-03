@@ -21,7 +21,11 @@ export class QuestionBrickExplanationElement extends HTMLElement {
   }
 
   set success(newSuccess: boolean) {
-    this.dataset.success = newSuccess.toString();
+    if (newSuccess === undefined) {
+      delete this.dataset.success;
+    } else {
+      this.dataset.success = newSuccess.toString();
+    }
     this.dispatchEvent(new Event('success'));
   }
 

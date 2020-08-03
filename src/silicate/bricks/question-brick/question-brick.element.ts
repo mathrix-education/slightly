@@ -26,7 +26,7 @@ export class QuestionBrickElement extends HTMLElement {
   reset(): void {
     this.reveal = false;
     this.$explanations.forEach($explanation => {
-      $explanation.success = false;
+      $explanation.success = undefined;
     });
   }
 }

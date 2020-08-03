@@ -22,4 +22,11 @@ export class QuestionBrickElement extends HTMLElement {
   set reveal(newReveal: boolean) {
     this.dataset.reveal = newReveal.toString();
   }
+
+  reset(): void {
+    this.reveal = false;
+    this.$explanations.forEach($explanation => {
+      $explanation.success = false;
+    });
+  }
 }

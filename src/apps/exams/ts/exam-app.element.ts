@@ -49,20 +49,12 @@ export class ExamAppElement extends BridgeElement {
     return parseInt(this.dataset.total, 10);
   }
 
-  get success(): boolean {
-    return this.dataset.success === 'true';
-  }
-
-  set success(newSuccess: boolean) {
-    this.dataset.success = newSuccess.toString();
-  }
-
   reset(): void {
-    this.phase = ExamPhases.startup;
+    this.phase = ExamPhases.playing;
     this.score = 0;
-    this.success = false;
     this.$questions.forEach($question => {
-      $question.reveal = false;
+      $question.reset();
+
     });
   }
 
@@ -71,7 +63,6 @@ export class ExamAppElement extends BridgeElement {
     this.score = this.$explanations.reduce((sum, $e) => sum + $e.score, 0);
 
     if (finish) {
-      this.success = this.score >= this.total / 2;
       this.bridge.emit<ExamResultEvent>(ExamEvents.result, {
         score: this.score,
         total: this.total,

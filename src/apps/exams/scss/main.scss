@@ -12,29 +12,6 @@ exam-app {
     grid-row-gap: spacing(2);
   }
 
-  .exam__timer {
-    display: grid;
-    grid-template-columns: max-content auto max-content;
-    grid-column-gap: spacing(2);
-    @include poppins;
-    font-size: 14px;
-    line-height: 30px;
-
-    .exam__timer-icon {
-      width: 30px;
-      height: 30px;
-    }
-
-    .exam__timer-pause {
-      color: $green;
-    }
-  }
-
-  .exam__success h3,
-  .exam__failure h3 {
-    margin-top: 0;
-  }
-
   &:not([data-success='true']) {
     .exam__success {
       display: none;
@@ -45,15 +22,6 @@ exam-app {
     .exam__failure {
       display: none;
     }
-  }
-
-  .exam__score-bar {
-    height: 36px;
-    color: $white;
-    @include poppins-semi-bold;
-    font-size: 24px;
-    line-height: 36px;
-    text-align: center;
   }
 
   &[data-success='true'] {

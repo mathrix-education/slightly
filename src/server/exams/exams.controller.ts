@@ -1,12 +1,7 @@
-import {
-  Controller,
-  Get,
-  Param,
-  Render,
-} from '@nestjs/common';
+import { Controller, Get, Res } from '@nestjs/common';
 import { Parser } from '../../silicate/spec/parser';
-import { Exam } from './exam';
 import { ExamsService } from './exams.service';
+import { Response } from 'express';
 
 @Controller('exams')
 export class ExamsController {
@@ -14,12 +9,9 @@ export class ExamsController {
   }
 
   @Get(':id')
-  @Render('exams')
-  find(@Param('id') id: string | number): Promise<Exam> {
-    return this.exams.findOne(id).then(exam => {
-      exam.content = this.parser.parse(exam.content);
-
-      return exam;
-    });
+  async find(@Res() res: Response) {
+    const exam = await this.exams.findOne(res.req.params.id);
+    exam.content = this.parser.parse(exam.content);
+    return res.render(exam.duration ? 'exams' : 'courses', exam);
   }
 }

@@ -13,8 +13,11 @@ import { ExercisesService } from './exercises/exercises.service';
 import { Flashcard } from './flashcards/flashcard';
 import { FlashcardsController } from './flashcards/flashcards.controller';
 import { FlashcardsService } from './flashcards/flashcards.service';
+import { LessonsController } from './trainings/lessons.controller';
+import { LessonsService } from './trainings/lessons.service';
+import { Lesson } from './trainings/lessons';
 
-const entities = [Course, Exercise, Flashcard, Exam];
+const entities = [Course, Exercise, Flashcard, Exam, Lesson];
 
 @Module({
   imports: [
@@ -32,8 +35,8 @@ const entities = [Course, Exercise, Flashcard, Exam];
     TypeOrmModule.forFeature(entities),
     SilicateModule,
   ],
-  controllers: [CoursesController, ExercisesController, FlashcardsController, ExamsController],
-  providers: [CoursesService, ExercisesService, FlashcardsService, ExamsService],
+  controllers: [CoursesController, ExercisesController, FlashcardsController, ExamsController, LessonsController],
+  providers: [CoursesService, ExercisesService, FlashcardsService, ExamsService, LessonsService],
 })
 export class AppModule {
 }

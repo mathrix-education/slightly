@@ -1,67 +1,67 @@
 <!DOCTYPE html>
 <html lang="fr-FR">
-  <head>
-    <meta charset="utf-8"/>
-    <title>Mathrix</title>
+<head>
+  <meta charset="utf-8"/>
+  <title>Mathrix</title>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <base href="{{ globals 'base_href' }}">
+  <base href="{{ globals 'base_href' }}">
 
-    <link href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-  </head>
+  <link href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
 
-  <body>
-    <flashcard-app>
-      <section class="flashcard__screen flashcard__play-screen">
-        <div class="flashcard__progress">
-          <div class="flashcard__progress-buffer"></div>
+<body>
+<flashcard-app>
+  <section class="flashcard__screen flashcard__play-screen">
+    <div class="flashcard__progress">
+      <div class="flashcard__progress-buffer"></div>
+    </div>
+
+    <a class="flashcard__mode-trigger flashcard__revision-trigger">Mode révision</a>
+    <a class="flashcard__mode-trigger flashcard__training-trigger">Mode entraînement</a>
+
+    <div class="flashcard__container">
+      {{#forEach content}}
+        <div class="flashcard">
+          <div class="flashcard__front">
+            {{> wall wall=this.front }}
+          </div>
+          <div class="flashcard__back">
+            {{> wall wall=this.back }}
+          </div>
         </div>
+      {{/forEach}}
+    </div>
 
-        <a class="flashcard__mode-trigger flashcard__revision-trigger">Mode révision</a>
-        <a class="flashcard__mode-trigger flashcard__training-trigger">Mode entraînement</a>
+    <div class="flashcard__footer">
+      <button class="flashcard__reveal-btn btn btn-primary">Voir la réponse</button>
 
-        <div class="flashcard__container">
-          {{#forEach fronts}}
-            <div class="flashcard">
-              <div class="flashcard__front">
-                {{> wall wall=this }}
-              </div>
-              <div class="flashcard__back">
-                {{> wall wall=(itemAt ../backs (minus index 1)) }}
-              </div>
-            </div>
-          {{/forEach}}
-        </div>
+      <button class="flashcard__wrong-btn btn btn-secondary">
+        <i class="material-icons">highlight_off</i>
+        J'ai faux
+      </button>
 
-        <div class="flashcard__footer">
-          <button class="flashcard__reveal-btn btn btn-primary">Voir la réponse</button>
+      <button class="flashcard__right-btn btn btn-secondary">
+        <i class="material-icons">check_circle</i>J'ai juste
+      </button>
+    </div>
+  </section>
 
-          <button class="flashcard__wrong-btn btn btn-secondary">
-            <i class="material-icons">highlight_off</i>
-            J'ai faux
-          </button>
+  <section class="flashcard__screen flashcard__result-screen">
+    <div class="flashcard__score">
+      <div class="flashcard__score-percent"></div>
+      de réussite
+    </div>
 
-          <button class="flashcard__right-btn btn btn-secondary">
-            <i class="material-icons">check_circle</i>J'ai juste
-          </button>
-        </div>
-      </section>
-
-      <section class="flashcard__screen flashcard__result-screen">
-        <div class="flashcard__score">
-          <div class="flashcard__score-percent"></div>
-          de réussite
-        </div>
-
-        <div class="flashcard__buttons">
-          <button class="flashcard__retry-btn btn btn-secondary">Recommencer</button>
-          <button class="flashcard__exit-btn btn btn-primary">Terminer</button>
-        </div>
-      </section>
-    </flashcard-app>
-  </body>
+    <div class="flashcard__buttons">
+      <button class="flashcard__retry-btn btn btn-secondary">Recommencer</button>
+      <button class="flashcard__exit-btn btn btn-primary">Terminer</button>
+    </div>
+  </section>
+</flashcard-app>
+</body>
 </html>

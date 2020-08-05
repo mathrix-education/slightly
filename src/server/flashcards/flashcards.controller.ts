@@ -17,8 +17,13 @@ export class FlashcardsController {
   @Render('flashcards')
   find(@Param('id') id: string | number): Promise<Flashcard> {
     return this.flashcards.findOne(id).then(flashcard => {
-      flashcard.fronts = flashcard.fronts.map(wall => this.parser.parse(wall));
-      flashcard.backs = flashcard.backs.map(wall => this.parser.parse(wall));
+      flashcard.content = flashcard.content.map(
+        ({ front, back }) => {
+          return {
+            front: this.parser.parse(front),
+            back: this.parser.parse(back),
+          };
+        });
 
       return flashcard;
     });

@@ -5,7 +5,7 @@ import {
 } from 'typeorm';
 import { Wall } from '../../silicate/spec/wall';
 
-@Entity({name: 'flashcards'})
+@Entity({ name: 'flashcards' })
 export class Flashcard {
   @PrimaryGeneratedColumn()
   id: number;
@@ -13,9 +13,6 @@ export class Flashcard {
   @Column()
   name: string;
 
-  @Column({type: 'json'})
-  fronts: Wall[];
-
-  @Column({type: 'json'})
-  backs: Wall[];
+  @Column({ type: 'json' })
+  content: { front: Wall, back: Wall }[];
 }

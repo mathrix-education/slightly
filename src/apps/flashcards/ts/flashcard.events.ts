@@ -1,25 +1,21 @@
 export enum FlashcardEvents {
-  result = 'flashcard.result',
-  exit = 'flashcard.exit',
+  revise = 'flashcard.revise',
+  training = 'flashcard.training',
+  reveal = 'flashcard.reveal',
+  next = 'flashcard.nest',
   redo = 'flashcard.redo',
 }
 
-/**
- * Emitted when the user finishes a series of flashcards.
- */
-export interface FlashcardResultEvent {
-  /** The total number of flashcards. */
-  total: number;
-  /** The number of valid flashcards specified by the user (always <= total). */
-  score: number;
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface FlashcardReviseEvent {
 }
 
-/**
- * Emitted when the user pressed the exit button on the result screen.
- */
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface FlashcardExitEvent {
-  // To be defined later if necessary
+export interface FlashcardNextEvent {
+}
+
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface FlashcardRevealEvent {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface

@@ -28,24 +28,6 @@ flashcard-app {
       display: none;
     }
   }
-
-  &:not([data-flipped='true']) {
-    .flashcard__right-btn, .flashcard__wrong-btn {
-      display: none;
-    }
-  }
-
-  &:not([data-phase='result']) {
-    .flashcard__result-screen {
-      display: none;
-    }
-  }
-
-  &[data-phase='result'] {
-    .flashcard__play-screen {
-      display: none;
-    }
-  }
 }
 
 .flashcard__screen {
@@ -63,26 +45,9 @@ flashcard-app {
   box-shadow: 5px 0 30px hsla(0, 0%, 72.5%, .6);
 }
 
-.flashcard__progress {
-  height: 10px;
-  background-color: $yellow-l2;
-  border-radius: 10px;
-  overflow: hidden;
 
-  .flashcard__progress-buffer {
-    width: 0;
-    height: 100%;
-    background-color: $yellow;
-    border-radius: 10px;
-    transition: width .3s ease;
-  }
-}
 
-.flashcard__mode-trigger {
-  justify-self: end;
-  @include poppins;
-  font-size: 14px;
-}
+
 
 .flashcard {
   margin-bottom: 24px;
@@ -154,16 +119,6 @@ flashcard-app {
       transform: rotateX(0) rotateY(0);
       background: $green-l2;
     }
-
-    .flashcard__reveal-btn {
-      display: none;
-    }
-
-    .flashcard__right-btn, .flashcard__wrong-btn {
-      display: grid;
-      grid-auto-flow: column;
-      grid-column-gap: spacing(1);
-    }
   }
 }
 
@@ -188,21 +143,4 @@ flashcard-app {
 .flashcard__score {
   justify-self: center;
   align-self: center;
-}
-
-.flashcard__score-percent {
-  color: $green;
-  @include poppins-medium;
-  font-size: 36px;
-
-  &:after {
-    content: ' %';
-  }
-}
-
-.flashcard__buttons {
-  display: grid;
-  grid-auto-flow: column;
-  grid-column-gap: spacing(2);
-  grid-template-columns: 1fr 1fr;
 }

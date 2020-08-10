@@ -17,13 +17,6 @@
 <body>
 <flashcard-app>
   <section class="flashcard__screen flashcard__play-screen">
-    <div class="flashcard__progress">
-      <div class="flashcard__progress-buffer"></div>
-    </div>
-
-    <a class="flashcard__mode-trigger flashcard__revision-trigger">Mode révision</a>
-    <a class="flashcard__mode-trigger flashcard__training-trigger">Mode entraînement</a>
-
     <div class="flashcard__container">
       {{#forEach content}}
         <div class="flashcard">
@@ -35,31 +28,6 @@
           </div>
         </div>
       {{/forEach}}
-    </div>
-
-    <div class="flashcard__footer">
-      <button class="flashcard__reveal-btn btn btn-primary">Voir la réponse</button>
-
-      <button class="flashcard__wrong-btn btn btn-secondary">
-        <i class="material-icons">highlight_off</i>
-        J'ai faux
-      </button>
-
-      <button class="flashcard__right-btn btn btn-secondary">
-        <i class="material-icons">check_circle</i>J'ai juste
-      </button>
-    </div>
-  </section>
-
-  <section class="flashcard__screen flashcard__result-screen">
-    <div class="flashcard__score">
-      <div class="flashcard__score-percent"></div>
-      de réussite
-    </div>
-
-    <div class="flashcard__buttons">
-      <button class="flashcard__retry-btn btn btn-secondary">Recommencer</button>
-      <button class="flashcard__exit-btn btn btn-primary">Terminer</button>
     </div>
   </section>
 </flashcard-app>

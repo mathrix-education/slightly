@@ -2,9 +2,12 @@ import { BridgeElement } from '../../../front/bridge-element';
 import { Element } from '../../../front/element';
 import {
   FlashcardEvents,
-  FlashcardExitEvent, FlashcardRedoEvent,
-  FlashcardResultEvent,
+  FlashcardNextEvent,
+  FlashcardRedoEvent,
+  FlashcardRevealEvent,
+  FlashcardReviseEvent,
 } from './flashcard.events';
+import { ExamEvents, ExamFinishEvent } from '../../exams/ts/exam.events';
 
 enum FlashcardPhase {
   training = 'training',
@@ -14,16 +17,7 @@ enum FlashcardPhase {
 
 @Element('flashcard-app')
 export class FlashcardAppElement extends BridgeElement {
-  private readonly $progress = this.$<HTMLDivElement>('.flashcard__progress-buffer');
   private readonly $flashcards = this.$$<HTMLDivElement>('.flashcard');
-  private readonly $trainingBtn = this.$<HTMLButtonElement>('.flashcard__training-trigger');
-  private readonly $revisionBtn = this.$<HTMLButtonElement>('.flashcard__revision-trigger');
-  private readonly $revealBtn = this.$<HTMLButtonElement>('.flashcard__reveal-btn');
-  private readonly $wrongBtn = this.$<HTMLButtonElement>('.flashcard__wrong-btn');
-  private readonly $rightBtn = this.$<HTMLButtonElement>('.flashcard__right-btn');
-  private readonly $retryBtn = this.$<HTMLButtonElement>('.flashcard__retry-btn');
-  private readonly $exitBtn = this.$<HTMLButtonElement>('.flashcard__exit-btn');
-  private readonly $score = this.$<HTMLSpanElement>('.flashcard__score-percent');
 
   constructor() {
     super();
@@ -31,54 +25,36 @@ export class FlashcardAppElement extends BridgeElement {
     // Setup data
     this.current = 0;
     this.flipped = false;
-    this.score = 0;
     this.phase = FlashcardPhase.revision;
 
     // Revision phase
-    this.$trainingBtn.addEventListener('click', () => (this.phase = FlashcardPhase.training));
+    this.bridge.on<ExamFinishEvent>(ExamEvents.finish, () => (this.phase = FlashcardPhase.training));
 
     this.$flashcards.forEach($flashcard => {
       $flashcard.addEventListener('click', () => this.flip());
     });
-    this.$revealBtn.addEventListener('click', () => this.flip());
 
-    this.$rightBtn.addEventListener('click', () => {
-      // Right answer, increment score and go to next flashcard
-      this.score++;
-      this.current++;
-    });
-    this.$wrongBtn.addEventListener('click', () => {
-      // Wrong answer, DO NOT increment score and go to next flashcard
+    this.bridge.on<FlashcardRevealEvent>(FlashcardEvents.reveal, () => this.flip());
+
+    this.bridge.on<FlashcardNextEvent>(FlashcardEvents.next, () => {
       this.current++;
     });
 
     // Training phase
-    this.$revisionBtn.addEventListener('click', () => (this.phase = FlashcardPhase.revision));
+    this.bridge.on<FlashcardReviseEvent>(FlashcardEvents.revise, () => {
+      this.phase = FlashcardPhase.revision;
+    });
 
     // Result screen
-    this.$retryBtn.addEventListener('click', () => {
+    this.bridge.on<FlashcardRedoEvent>(FlashcardEvents.redo, () => {
       this.phase = FlashcardPhase.revision;
       this.bridge.emit<FlashcardRedoEvent>(FlashcardEvents.redo, {});
       this.reset();
     });
-    this.$exitBtn.addEventListener('click', () => {
-      this.bridge.emit<FlashcardExitEvent>(FlashcardEvents.exit, {});
-    });
-  }
-
-  private get phase(): FlashcardPhase {
-    return (this.dataset.phase as FlashcardPhase) ?? FlashcardPhase.revision;
   }
 
   private set phase(newPhase: FlashcardPhase) {
     this.dataset.phase = newPhase;
-
-    if (this.phase === FlashcardPhase.result) {
-      this.bridge.emit<FlashcardResultEvent>('flashcard.result', {
-        score: this.score,
-        total: this.size,
-      });
-    }
   }
 
   private get size(): number {
@@ -105,8 +81,6 @@ export class FlashcardAppElement extends BridgeElement {
     }
     this.flipped = false;
 
-    // Update progress
-    this.$progress.style.width = ((newCurrent * 100) / this.size).toFixed(2) + '%';
 
     if (newCurrent === this.size) {
       // This is the end
@@ -122,22 +96,12 @@ export class FlashcardAppElement extends BridgeElement {
     this.dataset.flipped = isFlipped ? 'true' : 'false';
   }
 
-  private get score(): number {
-    return parseInt(this.dataset.score, 10);
-  }
-
-  private set score(newScore: number) {
-    this.dataset.score = newScore.toString(10);
-    this.$score.textContent = ((this.score * 100) / this.size).toFixed(0).toString();
-  }
-
   /**
    * Reset the data.
    */
   private reset(): void {
     this.current = 0;
     this.flipped = false;
-    this.score = 0;
   }
 
   /**

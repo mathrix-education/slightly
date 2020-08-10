@@ -9,9 +9,9 @@ export class ExamsController {
   }
 
   @Get(':id')
-  async find(@Res() res: Response) {
+  async find(@Res() res: Response): Promise<void> {
     const exam = await this.exams.findOne(res.req.params.id);
     exam.content = this.parser.parse(exam.content);
-    return res.render(exam.duration ? 'exams' : 'courses', exam);
+    res.render(exam.duration ? 'exams' : 'courses', exam);
   }
 }

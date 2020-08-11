@@ -25,11 +25,13 @@ All events can be debugged in the browser console using the web version of Sligh
 | `'video.load'` | slightly -> app | Video was loaded |`VideoLoadEvent` |
 
 #### Flashcards
-| Event name            | Direction       | Fired when                             | Payload                |
-|-----------------------|-----------------|----------------------------------------|------------------------|
-| `'flashcard.result'`  | slightly -> app | User finishes for the last flashcard   | `FlashcardResultEvent` |
-| `'flashcard.redo'`    | slightly -> app | User clicks on the "Recommencer" button| `FlashcardRedoEvent`   |
-| `'flashcard.exit'`    | slightly -> app | User clicks on the "Terminer" button   | `FlashcardExitEvent`   |
+| Event name            | Direction       | Fired when                           | Payload                 |
+|-----------------------|-----------------|--------------------------------------|-------------------------|
+| `'flashcard.revise'`  | app -> slightly | User finishes for the last flashcard | `FlashcardReviseEvent`  |
+| `'flashcard.training'`| app -> slightly | User switch to training mode         | `FlashcardTrainingEvent`|
+| `'flashcard.reveal'`  | app -> slightly | User reveal the card                 | `FlashcardRevealEvent`  |
+| `'flashcard.next'`    | app -> slightly | User goes to next flashcard '        | `FlashcardNextEvent`    |
+| `'flashcard.redo'`    | app -> slightly | User clicks on the "Restart" button  | `FlashcardRedoEvent`    |
 
 #### Exercises
 | Event name          | Direction       | Fired when                 | Payload                |

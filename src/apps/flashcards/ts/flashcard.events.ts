@@ -2,7 +2,7 @@ export enum FlashcardEvents {
   revise = 'flashcard.revise',
   training = 'flashcard.training',
   reveal = 'flashcard.reveal',
-  next = 'flashcard.nest',
+  next = 'flashcard.next',
   redo = 'flashcard.redo',
 }
 

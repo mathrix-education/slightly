@@ -29,8 +29,9 @@ All events can be debugged in the browser console using the web version of Sligh
 |-----------------------|-----------------|--------------------------------------|-------------------------|
 | `'flashcard.revise'`  | app -> slightly | User finishes for the last flashcard | `FlashcardReviseEvent`  |
 | `'flashcard.training'`| app -> slightly | User switch to training mode         | `FlashcardTrainingEvent`|
-| `'flashcard.reveal'`  | app -> slightly | User reveal the card                 | `FlashcardRevealEvent`  |
-| `'flashcard.next'`    | app -> slightly | User goes to next flashcard '        | `FlashcardNextEvent`    |
+| `'flashcard.reveal'`  | app -> slightly | User reveal the flashcard            | `FlashcardRevealEvent`  |
+| `'flashcard.reveal'`  | slightly -> app | User tap on the flashcard            | `FlashcardTapEvent`     |
+| `'flashcard.next'`    | app -> slightly | User goes to next flashcard          | `FlashcardNextEvent`    |
 | `'flashcard.redo'`    | app -> slightly | User clicks on the "Restart" button  | `FlashcardRedoEvent`    |
 
 #### Exercises
@@ -43,4 +44,4 @@ All events can be debugged in the browser console using the web version of Sligh
 |-----------------|-----------------|-----------------------------------|-------------------|
 | `'exam.result'` | slightly -> app | User corrected all questions      | `ExamResultEvent` |
 | `'exam.finish'` | app -> slightly | User wants to see correction      | `ExamFinishEvent` |
-| `'exam.restart' | app -> slightly | User restart the exam             | `ExamResultEvent` |
+| `'exam.restart'`| app -> slightly | User restart the exam             | `ExamResultEvent` |

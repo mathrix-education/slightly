@@ -7,9 +7,8 @@ import {
   FlashcardRevealEvent,
   FlashcardReviseEvent,
 } from './flashcard.events';
-import { ExamEvents, ExamFinishEvent } from '../../exams/ts/exam.events';
 
-enum FlashcardPhase {
+export enum FlashcardPhase {
   training = 'training',
   revision = 'revision',
   result = 'result',
@@ -26,12 +25,15 @@ export class FlashcardAppElement extends BridgeElement {
     this.current = 0;
     this.flipped = false;
     this.phase = FlashcardPhase.revision;
+    this.phase = FlashcardPhase.training;
 
-    // Revision phase
-    this.bridge.on<ExamFinishEvent>(ExamEvents.finish, () => (this.phase = FlashcardPhase.training));
+
 
     this.$flashcards.forEach($flashcard => {
-      $flashcard.addEventListener('click', () => this.flip());
+      $flashcard.addEventListener('click', () => {
+        this.flip();
+        this.bridge.emit(FlashcardEvents.reveal, {});
+      });
     });
 
     this.bridge.on<FlashcardRevealEvent>(FlashcardEvents.reveal, () => this.flip());
@@ -40,15 +42,16 @@ export class FlashcardAppElement extends BridgeElement {
       this.current++;
     });
 
-    // Training phase
     this.bridge.on<FlashcardReviseEvent>(FlashcardEvents.revise, () => {
       this.phase = FlashcardPhase.revision;
     });
 
-    // Result screen
+    this.bridge.on<FlashcardReviseEvent>(FlashcardEvents.training, () => {
+      this.phase = FlashcardPhase.training;
+    });
+
     this.bridge.on<FlashcardRedoEvent>(FlashcardEvents.redo, () => {
       this.phase = FlashcardPhase.revision;
-      this.bridge.emit<FlashcardRedoEvent>(FlashcardEvents.redo, {});
       this.reset();
     });
   }
